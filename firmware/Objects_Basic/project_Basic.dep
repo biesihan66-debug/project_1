@@ -1,0 +1,133 @@
+Dependencies for Project 'project', Target 'Basic': (DO NOT MODIFY !)
+F (.\startup\startup_stm32f103c8.s)(0x6AF47323)(--cpu Cortex-M3 -g --apcs=interwork -I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32F10X_MD SETA 1"--list .\objects_basic\startup_stm32f103c8.lst --xref -o .\objects_basic\startup_stm32f103c8.o --depend .\objects_basic\startup_stm32f103c8.d)
+F (.\startup\stm32f103c8_flash.sct)(0x6AF470F7)()
+F (.\USER\main.c)(0x6AF472DB)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\main.o --omf_browse .\objects_basic\main.crf --depend .\objects_basic\main.d)
+I (.\System\automatic_rlc_measurement.h)(0x6AF46F11)
+I (.\System\open_short_calibration.h)(0x6AF46FC1)
+I (.\System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (.\System\rlc_measurement_port.h)(0x6AF46EE1)
+I (.\System\measurement_debug_output.h)(0x6AF47035)
+I (.\System\oled_result_display.h)(0x6AF472DB)
+I (.\System\stm32_rlc_board.h)(0x6AF46EE1)
+F (.\System\oled_result_display.c)(0x6AF47301)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\oled_result_display.o --omf_browse .\objects_basic\oled_result_display.crf --depend .\objects_basic\oled_result_display.d)
+I (System\oled_result_display.h)(0x6AF472DB)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\measurement_text_format.h)(0x6AF47301)
+I (D:\keli5\ARM\ARMCC\include\float.h)(0x6025237E)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+F (.\System\oled_result_display.h)(0x6AF472DB)()
+F (.\System\measurement_debug_output.c)(0x6AF47035)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\measurement_debug_output.o --omf_browse .\objects_basic\measurement_debug_output.crf --depend .\objects_basic\measurement_debug_output.d)
+I (System\measurement_debug_output.h)(0x6AF47035)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\measurement_text_format.h)(0x6AF47301)
+I (D:\keli5\ARM\ARMCC\include\float.h)(0x6025237E)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+F (.\System\measurement_debug_output.h)(0x6AF47035)()
+F (.\System\measurement_text_format.h)(0x6AF47301)()
+F (.\System\automatic_rlc_measurement.c)(0x6AF4737A)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\automatic_rlc_measurement.o --omf_browse .\objects_basic\automatic_rlc_measurement.crf --depend .\objects_basic\automatic_rlc_measurement.d)
+I (System\automatic_rlc_measurement.h)(0x6AF46F11)
+I (System\open_short_calibration.h)(0x6AF46FC1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+I (System\rlc_impedance_calculation.h)(0x6AF46F88)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\automatic_rlc_measurement.h)(0x6AF46F11)()
+F (.\System\rlc_impedance_calculation.c)(0x6AF46F88)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\rlc_impedance_calculation.o --omf_browse .\objects_basic\rlc_impedance_calculation.crf --depend .\objects_basic\rlc_impedance_calculation.d)
+I (System\rlc_impedance_calculation.h)(0x6AF46F88)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\float.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\rlc_impedance_calculation.h)(0x6AF46F88)()
+F (.\System\open_short_calibration.c)(0x6AF46FC1)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\open_short_calibration.o --omf_browse .\objects_basic\open_short_calibration.crf --depend .\objects_basic\open_short_calibration.d)
+I (System\open_short_calibration.h)(0x6AF46FC1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_impedance_calculation.h)(0x6AF46F88)
+I (D:\keli5\ARM\ARMCC\include\float.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\open_short_calibration.h)(0x6AF46FC1)()
+F (.\System\rlc_measurement_port.h)(0x6AF46EE1)()
+F (.\System\rlc_measurement_types.h)(0x6AF46EE1)()
+F (.\System\stm32_rlc_board.c)(0x6AF47352)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\stm32_rlc_board.o --omf_browse .\objects_basic\stm32_rlc_board.crf --depend .\objects_basic\stm32_rlc_board.d)
+I (System\board_pin_map.h)(0x6AF47352)
+I (System\stm32f103_registers.h)(0x6AF46F9D)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_board_internal.h)(0x6AF47095)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+F (.\System\stm32_rlc_board.h)(0x6AF46EE1)()
+F (.\System\board_pin_map.h)(0x6AF47352)()
+F (.\System\stm32f103_registers.h)(0x6AF46F9D)()
+F (.\System\rlc_board_internal.h)(0x6AF47095)()
+F (.\System\excitation_signal.c)(0x6AF47021)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\excitation_signal.o --omf_browse .\objects_basic\excitation_signal.crf --depend .\objects_basic\excitation_signal.d)
+I (System\board_pin_map.h)(0x6AF47352)
+I (System\stm32f103_registers.h)(0x6AF46F9D)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_board_internal.h)(0x6AF47095)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+F (.\System\voltage_current_sampling.c)(0x6AF47021)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\voltage_current_sampling.o --omf_browse .\objects_basic\voltage_current_sampling.crf --depend .\objects_basic\voltage_current_sampling.d)
+I (System\board_pin_map.h)(0x6AF47352)
+I (System\stm32f103_registers.h)(0x6AF46F9D)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_board_internal.h)(0x6AF47095)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+F (.\System\feedback_range_switch.c)(0x6AF46F9D)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\feedback_range_switch.o --omf_browse .\objects_basic\feedback_range_switch.crf --depend .\objects_basic\feedback_range_switch.d)
+I (System\board_pin_map.h)(0x6AF47352)
+I (System\stm32f103_registers.h)(0x6AF46F9D)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_board_internal.h)(0x6AF47095)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+F (.\System\oled_i2c_transport.c)(0x6AF472F9)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\oled_i2c_transport.o --omf_browse .\objects_basic\oled_i2c_transport.crf --depend .\objects_basic\oled_i2c_transport.d)
+I (System\board_pin_map.h)(0x6AF47352)
+I (System\stm32f103_registers.h)(0x6AF46F9D)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_board_internal.h)(0x6AF47095)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+F (.\System\calibration_flash_storage.c)(0x6AF472F9)(--c99 -c --cpu Cortex-M3 -g -O2 --apcs=interwork --split_sections -I .\System --no-multibyte-chars-I.\RTE\_Basic-ID:\keli5\packs\Keil\STM32F1xx_DFP\2.2.0\Device\Include-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DRLC_APP_BASIC_ONLY="1"-o .\objects_basic\calibration_flash_storage.o --omf_browse .\objects_basic\calibration_flash_storage.crf --depend .\objects_basic\calibration_flash_storage.d)
+I (System\board_pin_map.h)(0x6AF47352)
+I (System\stm32f103_registers.h)(0x6AF46F9D)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\rlc_board_internal.h)(0x6AF47095)
+I (System\stm32_rlc_board.h)(0x6AF46EE1)
+I (System\rlc_measurement_port.h)(0x6AF46EE1)
+I (System\rlc_measurement_types.h)(0x6AF46EE1)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)

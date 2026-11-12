@@ -1,0 +1,41 @@
+{
+  "project": "C:\\Users\\1\\Desktop\\集训电赛\\测量代码V1.1",
+  "source_sha256": "8ba44b0319b49cd41a3eb3b85550be14c8db137e202347142b38a9db269dbeef",
+  "builds": [
+    {
+      "target": "Full",
+      "project_files": 34,
+      "hex_data_bytes": 17556,
+      "sha256": "2c30197691b27f1d9fe7ac03b2ec8d6c5ebfa37d849294636902be33756cafd1"
+    },
+    {
+      "target": "Basic",
+      "project_files": 34,
+      "hex_data_bytes": 17552,
+      "sha256": "3ddfc1001e126a27bd74351def11c72c097733d476bad227dc0258fd4660c83b"
+    },
+    {
+      "target": "Fixed1k",
+      "project_files": 34,
+      "hex_data_bytes": 16072,
+      "sha256": "87b0823db6167a1701e011feb5f780eeb2a760a1804de5f4d703671cf59dd4c3"
+    }
+  ],
+  "pdf_pages": 2,
+  "pdf_sha256": "257e44ccb09bdbf1abc8d16ec860467aa9f27c8326e6464dd5326428a2c3ccdc",
+  "software_evidence": "Current module paths, headers, release HEX, checksums, calibration-region bounds and build freshness checked; prior functional tests remain valid for unchanged sources.",
+  "hardware_status": "User reports hardware not ready; current PresentOnly device query found no ST-LINK or STM32.",
+  "unverified_requirements": [
+    "SWD programming and boot",
+    "Real OLED controller, pins and display",
+    "ADC timing and channel scaling on board",
+    "TP1 frequency error <=0.1% and 0.5 Vrms +/-10%",
+    "Basic R/C/L accuracy",
+    "100 kHz extended L/C accuracy",
+    "Calibrated 10 pF accuracy",
+    "10 ohm to 1 Mohm accuracy",
+    "Button-to-stable-display <=1 second",
+    "Single external +5 V power and fixed fixture"
+  ],
+  "conclusion": "Software refinement and offline checks finished. Full goal cannot be proved without connected hardware and measurement instruments."
+}
