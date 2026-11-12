@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RLC 电桥 V1.1 嘉立创商城选料表</title>
+<style>
+:root {color-scheme:light; --ink:#142e46; --muted:#465d70; --line:#d6e2ec; --blue:#205882; --panel:#fff; --pale:#edf5fc; --green:#17634c; --amber:#865308}
+* {box-sizing:border-box}
+body {margin:0; background:#f2f6f9; color:var(--ink); font:15px/1.6 "Microsoft YaHei UI","Microsoft YaHei",sans-serif}
+main {width:min(1430px,calc(100% - 48px)); margin:32px auto 48px}
+header, section {background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:20px 24px; margin-bottom:18px}
+header {border-left:6px solid var(--blue)}
+h1 {font-size:clamp(22px,3vw,29px); margin:0 0 6px; line-height:1.35}
+h2 {font-size:19px; margin:0}
+p {margin:7px 0; color:var(--muted)}
+a {color:var(--blue)}
+.bar {display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px}
+.copy-all {border:1px solid var(--blue); background:var(--blue); color:#fff; padding:7px 12px; border-radius:6px; font:inherit; cursor:pointer}
+.scroller {overflow:auto; border:1px solid var(--line); max-width:100%}
+table {width:100%; min-width:1150px; border-collapse:collapse; font-size:13px; line-height:1.5}
+th, td {text-align:left; vertical-align:middle; padding:8px 9px; border-right:1px solid #e3ebf2; border-bottom:1px solid #e3ebf2}
+thead th {background:#e7f0f9; color:#153d62; white-space:nowrap}
+tbody .section th {background:#eaf3f7; color:#194963; font-size:14px; padding:8px 9px}
+tbody tr:nth-child(odd):not(.section) {background:#f8fafc}
+tbody tr:hover:not(.section) {background:#eef5fb}
+td:nth-child(1) {color:var(--muted); font-variant-numeric:tabular-nums}
+td:nth-child(2) {font-weight:650; width:112px}
+td:nth-child(3) {min-width:110px}
+td:nth-child(4) {min-width:132px}
+td:nth-child(5) {min-width:195px}
+.qty {text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums}
+.copy {background:var(--pale); color:#18446d; border:1px solid #b7d1ea; border-radius:5px; padding:3px 6px; font:12px/1.45 Consolas, "Microsoft YaHei", monospace; white-space:nowrap; cursor:pointer}
+.copy:hover {background:#e0eefb}
+.copy[data-copied] {background:#e5f4eb; border-color:#8bc3a8; color:var(--green)}
+:focus-visible {outline:2px solid #126ab2; outline-offset:2px}
+.code {font:13px Consolas,monospace; white-space:nowrap; color:#794d16; text-underline-offset:2px}
+.state {color:var(--green); background:#eaf6ef; white-space:nowrap}
+.state.pending {color:var(--amber); background:#fff3d7}
+aside {border-left:4px solid #daa849; background:#fff7e7; padding:9px 12px; margin-top:13px}
+aside p {margin:0; color:#684b1b}
+ul {margin:7px 0 0; padding-left:22px}
+li {margin:4px 0}
+#status {color:var(--green); min-height:1.5em; margin:8px 0 0}
+@media(max-width:640px) {main {width:calc(100% - 20px); margin-top:12px} header,section {padding:13px 11px}}
+@media print {
+  main {width:100%; margin:0}
+  header, section {padding:8px 0; margin:0 0 10px; border:0}
+  table {min-width:0; font-size:9pt}
+  td, th {min-width:0!important; padding:3px 4px}
+  tr {break-inside:avoid}
+  .copy-all, #status {display:none}
+  .copy {white-space:normal; overflow-wrap:anywhere; font-size:8pt}
+  .scroller {overflow:visible}
+  .qty, .state {white-space:normal}
+  @page {size:A4 landscape; margin:10mm}
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>RLC 电桥 V1.1 · 嘉立创商城选料对照表</h1>
+<p>Fixed1k 面包板测试与装配焊接共用一份表。核对日期为 2026 年 11 月 12 日。</p>
+<p>点完整型号复制，粘贴到<a href="https://www.szlcsc.com/" target="_blank" rel="noopener noreferrer">立创商城</a>搜索。也可点立创编号查看对应商品的封装、库存和起订量。</p>
+</header>
+<section aria-labelledby="bom-title">
+<div class="bar"><h2 id="bom-title">采购物料</h2><button class="copy-all" type="button">复制已核对关键词</button></div>
+<p>两列用量分别对应一套测试电路和一套焊接电路。测试件转入装配时按可复用数量扣减，同一件不用买两次。用量以装机需求计，耗材按备料量计。</p>
+<div class="scroller" tabindex="0" aria-label="采购物料，可横向滚动">
+<table>
+<thead><tr><th scope="col">#</th><th scope="col">位号或用途</th><th scope="col">器件</th><th scope="col">封装／尺寸</th><th scope="col">规格与备注</th><th scope="col" class="qty">测试用量</th><th scope="col" class="qty">焊接用量</th><th scope="col">商城搜索关键词</th><th scope="col">立创编号</th><th scope="col">商城核对</th></tr></thead>
+<tbody><tr class="section"><th colspan="10" scope="rowgroup">电路元件</th></tr><tr><td>1</td><td>U1</td><td>MCP6022 双运放</td><td>PDIP-8</td><td>3.3 V 单电源。A 路调理激励，B 路跨阻采样。</td><td class="qty">1 片</td><td class="qty">1 片</td><td><button class="copy" type="button" title="复制商城搜索关键词">MCP6022-I/P</button></td><td><a class="code" href="https://item.szlcsc.com/670196.html" target="_blank" rel="noopener noreferrer">C640399</a></td><td class="state">商品已核对</td></tr>
+<tr><td>2</td><td>R1、R2、R3、Rf、DUT</td><td>1 kΩ 金属膜电阻</td><td>轴向直插 Ø2.3 × 6.5 mm</td><td>±1%，¼ W。4 只入电路，1 只作首测 DUT。</td><td class="qty">5 只</td><td class="qty">5 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">MF1/4W-1KΩ±1% T</button></td><td><a class="code" href="https://item.szlcsc.com/120593.html" target="_blank" rel="noopener noreferrer">C119324</a></td><td class="state">商品已核对</td></tr>
+<tr><td>3</td><td>R4</td><td>100 kΩ 金属膜电阻</td><td>轴向直插 Ø2.4 × 6.4 mm</td><td>±1%，¼ W。VREF 偏置。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">RN1/4W100KFT/BA1</button></td><td><a class="code" href="https://item.szlcsc.com/401615.html" target="_blank" rel="noopener noreferrer">C410694</a></td><td class="state">商品已核对</td></tr>
+<tr><td>4</td><td>R5</td><td>13 kΩ 金属膜电阻</td><td>轴向直插 Ø2.2 × 6.5 mm</td><td>±1%，¼ W。与 R6 配对设置增益。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">MFR0W4F1302A50</button></td><td><a class="code" href="https://item.szlcsc.com/59714.html" target="_blank" rel="noopener noreferrer">C58669</a></td><td class="state">商品已核对</td></tr>
+<tr><td>5</td><td>R6</td><td>10 kΩ 金属膜电阻</td><td>轴向直插 Ø2.7 × 6.2 mm</td><td>±1%，¼ W。与 R5 配对设置增益。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">MF1/4W-10K±1%-ST52</button></td><td><a class="code" href="https://item.szlcsc.com/3158983.html" target="_blank" rel="noopener noreferrer">C2903232</a></td><td class="state">商品已核对</td></tr>
+<tr><td>6</td><td>C1</td><td>22 µF 铝电解电容</td><td>径向直插 Ø5 × 11 mm</td><td>25 V，±20%。正极接 VREF，负极接 GND。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">CD1101EM220D110T</button></td><td><a class="code" href="https://item.szlcsc.com/53673762.html" target="_blank" rel="noopener noreferrer">C51026577</a></td><td class="state">商品已核对</td></tr>
+<tr><td>7</td><td>C2</td><td>100 nF 独石电容</td><td>径向直插 P5.08 mm</td><td>100 V，X7R，±10%。靠近 U1 的供电脚。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">CT4-1206B104K101F3-Y</button></td><td><a class="code" href="https://item.szlcsc.com/51625499.html" target="_blank" rel="noopener noreferrer">C49215580</a></td><td class="state">商品已核对</td></tr>
+<tr><td>8</td><td>C3</td><td>1 µF 无极性独石电容</td><td>径向直插 P5.08 mm</td><td>100 V，X7R，±10%。AD9833 输出耦合。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">CT4-0805B105K101F3-Y</button></td><td><a class="code" href="https://item.szlcsc.com/51625491.html" target="_blank" rel="noopener noreferrer">C49215572</a></td><td class="state">商品已核对</td></tr>
+<tr><td>9</td><td>C4</td><td>4.7 nF 瓷片电容</td><td>径向直插 P5 mm</td><td>50 V，±10%。A 路输入滤波。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">DCT472K30Y5PF6FJ5A0</button></td><td><a class="code" href="https://item.szlcsc.com/3138600.html" target="_blank" rel="noopener noreferrer">C2896051</a></td><td class="state">商品已核对</td></tr>
+<tr><td>10</td><td>Cf</td><td>22 pF 独石电容</td><td>径向直插 P5.08 mm</td><td>50 V，C0G，±5%。与 Rf 并联，焊接时尽量靠近 U1 的 6、7 脚。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">CC4-0603N220J500F3</button></td><td><a class="code" href="https://item.szlcsc.com/111505.html" target="_blank" rel="noopener noreferrer">C110283</a></td><td class="state">商品已核对</td></tr>
+<tr><td>11</td><td>SW1</td><td>常开瞬时轻触按键</td><td>直插 4 脚，6 × 6 mm</td><td>单刀单掷常开，选两组不同触点分别接 PB10 与 GND。</td><td class="qty">1 只</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">LXW-TS-6X6X6-DIP</button></td><td><a class="code" href="https://item.szlcsc.com/56599288.html" target="_blank" rel="noopener noreferrer">C53447029</a></td><td class="state">商品已核对</td></tr></tbody>
+<tbody><tr class="section"><th colspan="10" scope="rowgroup">外接激励模块</th></tr><tr><td>12</td><td>DDS</td><td>AD9833 正弦激励验证板</td><td>成品模块（接口待核）</td><td>商城有该验证板。下单前确认可接 PA8 的 8 MHz 外部 MCLK、可隔离板载时钟，并核对 SPI 与 VOUT。</td><td class="qty">1 块</td><td class="qty">1 块</td><td><button class="copy" type="button" title="复制商城搜索关键词" data-pending>LCYZB-304-V1</button></td><td><a class="code" href="https://item.szlcsc.com/5979877.html" target="_blank" rel="noopener noreferrer">C5259076</a></td><td class="state pending">外部时钟待核</td></tr></tbody>
+<tbody><tr class="section"><th colspan="10" scope="rowgroup">面包板与装配配件</th></tr><tr><td>13</td><td>测试底板</td><td>830 孔免焊面包板</td><td>2.54 mm 孔距</td><td>搭建模拟前端。使用前测电源轨是否有断点。</td><td class="qty">1 块</td><td class="qty">—</td><td><button class="copy" type="button" title="复制商城搜索关键词">Solderless Breadboard 830</button></td><td><a class="code" href="https://item.szlcsc.com/23471791.html" target="_blank" rel="noopener noreferrer">C22041235</a></td><td class="state">商品已核对</td></tr>
+<tr><td>14</td><td>临时接线</td><td>公对母杜邦线</td><td>1P 公端 × 1P 母端</td><td>30 cm。用于模块与面包板互连，TP1/TP2 可借用其中两根。</td><td class="qty">20 根</td><td class="qty">—</td><td><button class="copy" type="button" title="复制商城搜索关键词">SS-534</button></td><td><a class="code" href="https://item.szlcsc.com/43205154.html" target="_blank" rel="noopener noreferrer">C41406905</a></td><td class="state">商品已核对</td></tr>
+<tr><td>15</td><td>TP1、TP2／接线</td><td>单排直排针</td><td>直插 1 × 40，P2.54 mm</td><td>测试时可截作杜邦线转接，焊接时截两针作 TP1/TP2，分别对应 PA0/PA1。</td><td class="qty">1 条备料</td><td class="qty">同条裁切</td><td><button class="copy" type="button" title="复制商城搜索关键词">2.54-1*40P直针</button></td><td><a class="code" href="https://item.szlcsc.com/2712.html" target="_blank" rel="noopener noreferrer">C2337</a></td><td class="state">商品已核对</td></tr>
+<tr><td>16</td><td>装配底板</td><td>洞洞板</td><td>60 × 80 mm</td><td>按洞洞板焊接方案备料。先试摆运放、模块连接和 DUT 端子。</td><td class="qty">—</td><td class="qty">1 块</td><td><button class="copy" type="button" title="复制商城搜索关键词">万能板6*8</button></td><td><a class="code" href="https://item.szlcsc.com/41635.html" target="_blank" rel="noopener noreferrer">C40652</a></td><td class="state">商品已核对</td></tr>
+<tr><td>17</td><td>U1 插座</td><td>DIP-8 圆孔 IC 插座</td><td>DIP-8，P2.54 mm</td><td>焊接阶段选配，便于取下和更换运放。</td><td class="qty">—</td><td class="qty">1 只（选配）</td><td><button class="copy" type="button" title="复制商城搜索关键词">2.54mm IC插座 圆孔</button></td><td><a class="code" href="https://item.szlcsc.com/42496.html" target="_blank" rel="noopener noreferrer">C41512</a></td><td class="state">商品已核对</td></tr>
+<tr><td>18</td><td>DUT 接口</td><td>2 位螺钉接线端子</td><td>直插 2P，P5.08 mm</td><td>两端接 TP1 和 U1 第 6 脚，便于更换 DUT。</td><td class="qty">—</td><td class="qty">1 只</td><td><button class="copy" type="button" title="复制商城搜索关键词">KF129-5.08-2P</button></td><td><a class="code" href="https://item.szlcsc.com/481588.html" target="_blank" rel="noopener noreferrer">C475092</a></td><td class="state">商品已核对</td></tr></tbody>
+</table>
+</div>
+<p id="status" role="status" aria-live="polite"></p>
+<aside><p><strong>AD9833 下单前确认。</strong> 已找到验证板的立创编号，但商品页未提供外部时钟接口信息。确认能按 V1.1 图接 8 MHz 外部时钟后再下单。批量复制会跳过这一行。</p></aside>
+</section>
+<section aria-labelledby="bench-title">
+<h2 id="bench-title">现场准备</h2>
+<ul>
+<li><strong>面包板测试。</strong> 公对公跳线与短硬芯跳线任选一种，备 1 套用于板内跨接。万用表、示波器和探头使用实验室现有设备。</li>
+<li><strong>实际装配。</strong> 准备焊台、焊锡丝、助焊剂、吸锡带、剪钳、镊子、短绝缘线及必要的固定件。先试摆，焊后断电检查连锡和通断，再用 1 kΩ DUT 复测。</li>
+</ul>
+<p>备料依据为同项目的<a href="../电路示意图/面包板电路图_V1.1.png">面包板电路图 V1.1</a>和<a href="../电路示意图/模块功能对应表_V1.1.pdf">模块功能对应表</a>。</p>
+</section>
+</main>
+<script>
+const statusLine = document.querySelector('#status');
+async function copyText(text) {
+  try { if (navigator.clipboard) { await navigator.clipboard.writeText(text); return true; } } catch {}
+  const box = document.createElement('textarea');
+  box.value = text;
+  box.setAttribute('readonly','');
+  box.style.cssText = 'position:fixed; left:-10000px; top:0';
+  document.body.append(box);
+  box.select();
+  let copied = false;
+  try { copied = document.execCommand('copy'); } catch {}
+  box.remove();
+  return copied;
+}
+for (const button of document.querySelectorAll('.copy')) {
+  const keyword = button.textContent;
+  button.addEventListener('click', async () => {
+    const copied = await copyText(keyword);
+    if (copied) {
+      button.setAttribute('data-copied','');
+      statusLine.textContent = '已复制 ' + keyword;
+    } else {
+      statusLine.textContent = '浏览器未允许访问剪贴板，可手动选择并复制型号。';
+    }
+  });
+}
+document.querySelector('.copy-all').addEventListener('click', async () => {
+  const keywords = [...document.querySelectorAll('.copy:not([data-pending])')].map(button => button.textContent);
+  const copied = await copyText(keywords.join('\n'));
+  statusLine.textContent = copied ? '已复制 ' + keywords.length + ' 个已核对型号，每行一个。' : '浏览器未允许访问剪贴板，请手动复制型号。';
+});
+</script>
+</body>
+</html>
+

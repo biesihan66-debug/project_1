@@ -1,0 +1,10 @@
+.\objects_fixed1k\excitation_signal.o: System\excitation_signal.c
+.\objects_fixed1k\excitation_signal.o: System\board_pin_map.h
+.\objects_fixed1k\excitation_signal.o: System\stm32f103_registers.h
+.\objects_fixed1k\excitation_signal.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_fixed1k\excitation_signal.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_fixed1k\excitation_signal.o: System\rlc_board_internal.h
+.\objects_fixed1k\excitation_signal.o: System\stm32_rlc_board.h
+.\objects_fixed1k\excitation_signal.o: System\rlc_measurement_port.h
+.\objects_fixed1k\excitation_signal.o: System\rlc_measurement_types.h
+.\objects_fixed1k\excitation_signal.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h

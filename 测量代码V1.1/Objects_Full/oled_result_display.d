@@ -1,0 +1,10 @@
+.\objects_full\oled_result_display.o: System\oled_result_display.c
+.\objects_full\oled_result_display.o: System\oled_result_display.h
+.\objects_full\oled_result_display.o: System\rlc_measurement_types.h
+.\objects_full\oled_result_display.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_full\oled_result_display.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects_full\oled_result_display.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_full\oled_result_display.o: System\measurement_text_format.h
+.\objects_full\oled_result_display.o: D:\keli5\ARM\ARMCC\Bin\..\include\float.h
+.\objects_full\oled_result_display.o: System\stm32_rlc_board.h
+.\objects_full\oled_result_display.o: System\rlc_measurement_port.h

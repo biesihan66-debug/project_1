@@ -1,0 +1,10 @@
+.\objects_fixed1k\feedback_range_switch.o: System\feedback_range_switch.c
+.\objects_fixed1k\feedback_range_switch.o: System\board_pin_map.h
+.\objects_fixed1k\feedback_range_switch.o: System\stm32f103_registers.h
+.\objects_fixed1k\feedback_range_switch.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_fixed1k\feedback_range_switch.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_fixed1k\feedback_range_switch.o: System\rlc_board_internal.h
+.\objects_fixed1k\feedback_range_switch.o: System\stm32_rlc_board.h
+.\objects_fixed1k\feedback_range_switch.o: System\rlc_measurement_port.h
+.\objects_fixed1k\feedback_range_switch.o: System\rlc_measurement_types.h
+.\objects_fixed1k\feedback_range_switch.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h

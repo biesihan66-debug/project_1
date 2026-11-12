@@ -1,0 +1,10 @@
+.\objects_full\automatic_rlc_measurement.o: System\automatic_rlc_measurement.c
+.\objects_full\automatic_rlc_measurement.o: System\automatic_rlc_measurement.h
+.\objects_full\automatic_rlc_measurement.o: System\open_short_calibration.h
+.\objects_full\automatic_rlc_measurement.o: System\rlc_measurement_types.h
+.\objects_full\automatic_rlc_measurement.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_full\automatic_rlc_measurement.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects_full\automatic_rlc_measurement.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_full\automatic_rlc_measurement.o: System\rlc_measurement_port.h
+.\objects_full\automatic_rlc_measurement.o: System\rlc_impedance_calculation.h
+.\objects_full\automatic_rlc_measurement.o: D:\keli5\ARM\ARMCC\Bin\..\include\math.h

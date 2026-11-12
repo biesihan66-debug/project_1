@@ -1,0 +1,18 @@
+--cpu Cortex-M3
+".\objects_full\startup_stm32f103c8.o"
+".\objects_full\main.o"
+".\objects_full\oled_result_display.o"
+".\objects_full\measurement_debug_output.o"
+".\objects_full\automatic_rlc_measurement.o"
+".\objects_full\rlc_impedance_calculation.o"
+".\objects_full\open_short_calibration.o"
+".\objects_full\stm32_rlc_board.o"
+".\objects_full\excitation_signal.o"
+".\objects_full\voltage_current_sampling.o"
+".\objects_full\feedback_range_switch.o"
+".\objects_full\oled_i2c_transport.o"
+".\objects_full\calibration_flash_storage.o"
+--strict --scatter ".\startup\stm32f103c8_flash.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Objects_Full\RLC_V1_1_Full.map" -o .\Objects_Full\RLC_V1_1_Full.axf
