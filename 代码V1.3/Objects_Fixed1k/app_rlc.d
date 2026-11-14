@@ -1,0 +1,13 @@
+.\objects_fixed1k\app_rlc.o: System\App_RLC.c
+.\objects_fixed1k\app_rlc.o: System\App_RLC.h
+.\objects_fixed1k\app_rlc.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_fixed1k\app_rlc.o: System\Key.h
+.\objects_fixed1k\app_rlc.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_fixed1k\app_rlc.o: System\RLC_Measure.h
+.\objects_fixed1k\app_rlc.o: System\RLC_Calibration.h
+.\objects_fixed1k\app_rlc.o: System\RLC_Types.h
+.\objects_fixed1k\app_rlc.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects_fixed1k\app_rlc.o: System\Serial_Debug.h
+.\objects_fixed1k\app_rlc.o: System\OLED_Display.h
+.\objects_fixed1k\app_rlc.o: System\BSP_Board.h
+.\objects_fixed1k\app_rlc.o: System\Flash_Calibration.h
