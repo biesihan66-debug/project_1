@@ -2269,38 +2269,38 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       894         78          0          0       8192       5053   adc_sample.o
-       876        372        332          2        664      11936   app_rlc.o
-       436         48         44          8          0       5859   bsp_board.o
-       344         16          0          0          0      17784   bsp_clock.o
-        88         12          0          0          0        979   bsp_gpio.o
-       212         22          0          1          0       1366   bsp_usart.o
-       504         46          0          4          0     262560   dds_signal.o
-       702         38          0          0          0       7716   flash_calibration.o
-       128         16         12          0         12       1702   key.o
-        14          0          0          0          0       1855   main.o
-      1260        366        256          1          0       8884   oled_display.o
-       740         72          0          1          0       4845   oled_i2c.o
-        96         14          5          0          0       1641   range_switch.o
-      1630         26          0          0          0      10426   rlc_calculate.o
-       646          0          0          0          0       7202   rlc_calibration.o
-      2074        138        236          0          0      21435   rlc_measure.o
-       644        296          0          0        384       3211   serial_debug.o
-        68         28        236          0       2304        864   startup_stm32f10x_md.o
-       370         22          0          0          0      17105   stm32f10x_adc.o
-       364         26          0          0          0      14258   stm32f10x_dma.o
-       314         52          0          0          0      13340   stm32f10x_flash.o
-       188          0          0          0          0      12352   stm32f10x_gpio.o
-       394         16          0          0          0      15700   stm32f10x_i2c.o
-       540        112          0         20          0      20499   stm32f10x_rcc.o
-       182         12          0          0          0      11051   stm32f10x_spi.o
-       420         64          0          0          0      25082   stm32f10x_tim.o
-       330         26          0          0          0      10559   stm32f10x_usart.o
-       176         34          0         20          0       1721   system_stm32f10x.o
-       416         30          0          0          0       4690   text_format.o
+       894         78          0          0       8192       5005   adc_sample.o
+       876        372        332          2        664      11840   app_rlc.o
+       436         48         44          8          0       5803   bsp_board.o
+       344         16          0          0          0      17744   bsp_clock.o
+        88         12          0          0          0        967   bsp_gpio.o
+       212         22          0          1          0       1342   bsp_usart.o
+       504         46          0          4          0     262456   dds_signal.o
+       702         38          0          0          0       7648   flash_calibration.o
+       128         16         12          0         12       1674   key.o
+        14          0          0          0          0       1851   main.o
+      1260        366        256          1          0       8808   oled_display.o
+       740         72          0          1          0       4789   oled_i2c.o
+        96         14          5          0          0       1621   range_switch.o
+      1630         26          0          0          0      10350   rlc_calculate.o
+       646          0          0          0          0       7150   rlc_calibration.o
+      2074        138        236          0          0      21323   rlc_measure.o
+       644        296          0          0        384       3175   serial_debug.o
+        68         28        236          0       2304        860   startup_stm32f10x_md.o
+       370         22          0          0          0      17021   stm32f10x_adc.o
+       364         26          0          0          0      14226   stm32f10x_dma.o
+       314         52          0          0          0      13268   stm32f10x_flash.o
+       188          0          0          0          0      12312   stm32f10x_gpio.o
+       394         16          0          0          0      15632   stm32f10x_i2c.o
+       540        112          0         20          0      20383   stm32f10x_rcc.o
+       182         12          0          0          0      10999   stm32f10x_spi.o
+       420         64          0          0          0      25030   stm32f10x_tim.o
+       330         26          0          0          0      10507   stm32f10x_usart.o
+       176         34          0         20          0       1701   system_stm32f10x.o
+       416         30          0          0          0       4650   text_format.o
 
     ----------------------------------------------------------------------
-     15082       1982       1156         60      11556     521675   Object Totals
+     15082       1982       1156         60      11556     520135   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         32          0          3          3          0          0   (incl. Padding)
 
@@ -2383,8 +2383,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     20084       2344       1188         60      11652     513727   Grand Totals
-     20084       2344       1188         60      11652     513727   ELF Image Totals
+     20084       2344       1188         60      11652     512187   Grand Totals
+     20084       2344       1188         60      11652     512187   ELF Image Totals
      20084       2344       1188         60          0          0   ROM Totals
 
 ==============================================================================
