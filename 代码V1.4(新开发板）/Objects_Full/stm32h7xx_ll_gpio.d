@@ -1,0 +1,12 @@
+.\objects_full\stm32h7xx_ll_gpio.o: Library\LL\stm32h7xx_ll_gpio.c
+.\objects_full\stm32h7xx_ll_gpio.o: Library\LL\stm32h7xx_ll_gpio.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\Device\stm32h7xx.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\Device\stm32h743xx.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\CMSIS\core_cm7.h
+.\objects_full\stm32h7xx_ll_gpio.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\CMSIS\cmsis_version.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\CMSIS\cmsis_compiler.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\CMSIS\cmsis_armcc.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\CMSIS\mpu_armv7.h
+.\objects_full\stm32h7xx_ll_gpio.o: .\Library\Device\system_stm32h7xx.h
+.\objects_full\stm32h7xx_ll_gpio.o: Library\LL\stm32h7xx_ll_bus.h
