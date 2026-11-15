@@ -1,0 +1,11 @@
+.\objects_full\delay.o: System\delay.c
+.\objects_full\delay.o: .\Library\Device\stm32h7xx.h
+.\objects_full\delay.o: .\Library\Device\stm32h743xx.h
+.\objects_full\delay.o: .\Library\CMSIS\core_cm7.h
+.\objects_full\delay.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_full\delay.o: .\Library\CMSIS\cmsis_version.h
+.\objects_full\delay.o: .\Library\CMSIS\cmsis_compiler.h
+.\objects_full\delay.o: .\Library\CMSIS\cmsis_armcc.h
+.\objects_full\delay.o: .\Library\CMSIS\mpu_armv7.h
+.\objects_full\delay.o: .\Library\Device\system_stm32h7xx.h
+.\objects_full\delay.o: System\delay.h

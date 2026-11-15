@@ -1,0 +1,16 @@
+.\objects_fixed1k\range_switch.o: System\Range_Switch.c
+.\objects_fixed1k\range_switch.o: System\Range_Switch.h
+.\objects_fixed1k\range_switch.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_fixed1k\range_switch.o: System\BSP_PinMap.h
+.\objects_fixed1k\range_switch.o: System\RLC_Types.h
+.\objects_fixed1k\range_switch.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_fixed1k\range_switch.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects_fixed1k\range_switch.o: .\Library\LL\stm32h7xx_ll_gpio.h
+.\objects_fixed1k\range_switch.o: .\Library\Device\stm32h7xx.h
+.\objects_fixed1k\range_switch.o: .\Library\Device\stm32h743xx.h
+.\objects_fixed1k\range_switch.o: .\Library\CMSIS\core_cm7.h
+.\objects_fixed1k\range_switch.o: .\Library\CMSIS\cmsis_version.h
+.\objects_fixed1k\range_switch.o: .\Library\CMSIS\cmsis_compiler.h
+.\objects_fixed1k\range_switch.o: .\Library\CMSIS\cmsis_armcc.h
+.\objects_fixed1k\range_switch.o: .\Library\CMSIS\mpu_armv7.h
+.\objects_fixed1k\range_switch.o: .\Library\Device\system_stm32h7xx.h

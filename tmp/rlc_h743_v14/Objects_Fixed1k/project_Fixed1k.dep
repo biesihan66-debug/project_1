@@ -1,0 +1,317 @@
+Dependencies for Project 'project', Target 'Fixed1k': (DO NOT MODIFY !)
+F (.\USER\main.c)(0x6AF8BE85)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\main.o --omf_browse .\objects_fixed1k\main.crf --depend .\objects_fixed1k\main.d)
+I (.\System\App_RLC.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+F (.\System\App_RLC.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\app_rlc.o --omf_browse .\objects_fixed1k\app_rlc.crf --depend .\objects_fixed1k\app_rlc.d)
+I (System\App_RLC.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (System\Key.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\RLC_Measure.h)(0x6AF87E65)
+I (System\RLC_Calibration.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (System\Serial_Debug.h)(0x6AF87E65)
+I (System\OLED_Display.h)(0x6AF87E65)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\Flash_Calibration.h)(0x6AF8BD53)
+F (.\System\App_RLC.h)(0x6AF87E65)()
+F (.\System\Key.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\key.o --omf_browse .\objects_fixed1k\key.crf --depend .\objects_fixed1k\key.d)
+I (System\Key.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+F (.\System\Key.h)(0x6AF87E65)()
+F (.\System\OLED_Display.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\oled_display.o --omf_browse .\objects_fixed1k\oled_display.crf --depend .\objects_fixed1k\oled_display.d)
+I (System\OLED_Display.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\OLED.h)(0x6AF87E65)
+I (System\OLED_Data.h)(0x6AF87E65)
+I (System\Text_Format.h)(0x6AF87E65)
+F (.\System\OLED_Display.h)(0x6AF87E65)()
+F (.\System\Serial_Debug.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\serial_debug.o --omf_browse .\objects_fixed1k\serial_debug.crf --depend .\objects_fixed1k\serial_debug.d)
+I (System\Serial_Debug.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\Text_Format.h)(0x6AF87E65)
+I (System\BSP_Board.h)(0x6AF87E65)
+F (.\System\Serial_Debug.h)(0x6AF87E65)()
+F (.\System\Text_Format.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\text_format.o --omf_browse .\objects_fixed1k\text_format.crf --depend .\objects_fixed1k\text_format.d)
+I (System\Text_Format.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\float.h)(0x6025237E)
+F (.\System\Text_Format.h)(0x6AF87E65)()
+F (.\System\RLC_Measure.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\rlc_measure.o --omf_browse .\objects_fixed1k\rlc_measure.crf --depend .\objects_fixed1k\rlc_measure.d)
+I (System\RLC_Measure.h)(0x6AF87E65)
+I (System\RLC_Calibration.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\RLC_Calculate.h)(0x6AF87E65)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\RLC_Measure.h)(0x6AF87E65)()
+F (.\System\RLC_Calculate.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\rlc_calculate.o --omf_browse .\objects_fixed1k\rlc_calculate.crf --depend .\objects_fixed1k\rlc_calculate.d)
+I (System\RLC_Calculate.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\float.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\RLC_Calculate.h)(0x6AF87E65)()
+F (.\System\RLC_Calibration.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\rlc_calibration.o --omf_browse .\objects_fixed1k\rlc_calibration.crf --depend .\objects_fixed1k\rlc_calibration.d)
+I (System\RLC_Calibration.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\RLC_Calculate.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\float.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\RLC_Calibration.h)(0x6AF87E65)()
+F (.\System\RLC_Types.h)(0x6AF87E65)()
+F (.\System\BSP_Board.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\bsp_board.o --omf_browse .\objects_fixed1k\bsp_board.crf --depend .\objects_fixed1k\bsp_board.d)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\BSP_Clock.h)(0x6AF8BA71)
+I (System\BSP_GPIO.h)(0x6AF8BF2F)
+I (System\BSP_USART.h)(0x6AF87E65)
+I (System\DDS_Signal.h)(0x6AF87E65)
+I (System\ADC_Sample.h)(0x6AF87E65)
+I (System\Range_Switch.h)(0x6AF87E65)
+I (System\OLED_I2C.h)(0x6AF8BF2F)
+I (System\delay.h)(0x6AF87E65)
+F (.\System\BSP_Board.h)(0x6AF87E65)()
+F (.\System\BSP_PinMap.h)(0x6AF8BA71)()
+F (.\System\DDS_Signal.c)(0x6AF8C2B5)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\dds_signal.o --omf_browse .\objects_fixed1k\dds_signal.crf --depend .\objects_fixed1k\dds_signal.d)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (System\DDS_Signal.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (System\delay.h)(0x6AF87E65)
+I (.\Library\LL\stm32h7xx_ll_bus.h)(0x6AF8B6EA)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\LL\stm32h7xx_ll_gpio.h)(0x6AF8B851)
+I (.\Library\LL\stm32h7xx_ll_rcc.h)(0x6AF8B6EA)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+I (.\Library\LL\stm32h7xx_ll_spi.h)(0x6AF8B6EA)
+F (.\System\ADC_Sample.c)(0x6AF8C0B5)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\adc_sample.o --omf_browse .\objects_fixed1k\adc_sample.crf --depend .\objects_fixed1k\adc_sample.d)
+I (System\ADC_Sample.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (System\delay.h)(0x6AF87E65)
+I (.\Library\LL\stm32h7xx_ll_adc.h)(0x6AF8B851)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\LL\stm32h7xx_ll_bus.h)(0x6AF8B6EA)
+I (.\Library\LL\stm32h7xx_ll_dma.h)(0x6AF8B851)
+I (.\Library\LL\stm32h7xx_ll_dmamux.h)(0x6AF8B851)
+I (.\Library\LL\stm32h7xx_ll_gpio.h)(0x6AF8B851)
+I (.\Library\LL\stm32h7xx_ll_tim.h)(0x6AF8B6EA)
+F (.\System\Range_Switch.c)(0x6AF8BAD7)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\range_switch.o --omf_browse .\objects_fixed1k\range_switch.crf --depend .\objects_fixed1k\range_switch.d)
+I (System\Range_Switch.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (.\Library\LL\stm32h7xx_ll_gpio.h)(0x6AF8B851)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+F (.\System\OLED_I2C.c)(0x6AF8BF2F)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\oled_i2c.o --omf_browse .\objects_fixed1k\oled_i2c.crf --depend .\objects_fixed1k\oled_i2c.d)
+I (System\OLED_I2C.h)(0x6AF8BF2F)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (.\Library\LL\stm32h7xx_ll_bus.h)(0x6AF8B6EA)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\LL\stm32h7xx_ll_gpio.h)(0x6AF8B851)
+I (.\Library\LL\stm32h7xx_ll_i2c.h)(0x6AF8B6EA)
+I (.\Library\LL\stm32h7xx_ll_rcc.h)(0x6AF8B6EA)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\Flash_Calibration.c)(0x6AF8C156)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\flash_calibration.o --omf_browse .\objects_fixed1k\flash_calibration.crf --depend .\objects_fixed1k\flash_calibration.d)
+I (System\Flash_Calibration.h)(0x6AF8BD53)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (.\Library\LL\stm32h7xx_ll_bus.h)(0x6AF8B6EA)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\LL\stm32h7xx_ll_dma.h)(0x6AF8B851)
+I (.\Library\LL\stm32h7xx_ll_dmamux.h)(0x6AF8B851)
+I (D:\keli5\ARM\ARMCC\include\string.h)(0x6025237E)
+F (.\System\DDS_Signal.h)(0x6AF87E65)()
+F (.\System\ADC_Sample.h)(0x6AF87E65)()
+F (.\System\Range_Switch.h)(0x6AF87E65)()
+F (.\System\OLED_I2C.h)(0x6AF8BF2F)()
+F (.\System\Flash_Calibration.h)(0x6AF8BD53)()
+F (.\System\BSP_Clock.c)(0x6AF8C193)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\bsp_clock.o --omf_browse .\objects_fixed1k\bsp_clock.crf --depend .\objects_fixed1k\bsp_clock.d)
+I (System\BSP_Clock.h)(0x6AF8BA71)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (.\Library\LL\stm32h7xx_ll_pwr.h)(0x6AF8B6EA)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\LL\stm32h7xx_ll_rcc.h)(0x6AF8B6EA)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\System\BSP_Clock.h)(0x6AF8BA71)()
+F (.\System\BSP_GPIO.c)(0x6AF8BAC3)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\bsp_gpio.o --omf_browse .\objects_fixed1k\bsp_gpio.crf --depend .\objects_fixed1k\bsp_gpio.d)
+I (System\BSP_GPIO.h)(0x6AF8BF2F)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (System\Range_Switch.h)(0x6AF87E65)
+I (.\Library\LL\stm32h7xx_ll_bus.h)(0x6AF8B6EA)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\LL\stm32h7xx_ll_gpio.h)(0x6AF8B851)
+F (.\System\BSP_GPIO.h)(0x6AF8BF2F)()
+F (.\System\BSP_USART.c)(0x6AF8BAF1)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\bsp_usart.o --omf_browse .\objects_fixed1k\bsp_usart.crf --depend .\objects_fixed1k\bsp_usart.d)
+I (System\BSP_USART.h)(0x6AF87E65)
+I (System\BSP_PinMap.h)(0x6AF8BA71)
+I (System\BSP_Board.h)(0x6AF87E65)
+I (System\RLC_Types.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\stddef.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (.\Library\LL\stm32h7xx_ll_bus.h)(0x6AF8B6EA)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\LL\stm32h7xx_ll_gpio.h)(0x6AF8B851)
+I (.\Library\LL\stm32h7xx_ll_rcc.h)(0x6AF8B6EA)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+I (.\Library\LL\stm32h7xx_ll_usart.h)(0x6AF8B6EA)
+F (.\System\BSP_USART.h)(0x6AF87E65)()
+F (.\System\OLED.c)(0x6AF8BA71)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\oled.o --omf_browse .\objects_fixed1k\oled.crf --depend .\objects_fixed1k\oled.d)
+I (System\OLED.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (System\OLED_Data.h)(0x6AF87E65)
+I (System\delay.h)(0x6AF87E65)
+I (System\OLED_I2C.h)(0x6AF8BF2F)
+I (D:\keli5\ARM\ARMCC\include\stdbool.h)(0x6025237C)
+I (D:\keli5\ARM\ARMCC\include\string.h)(0x6025237E)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+I (D:\keli5\ARM\ARMCC\include\stdio.h)(0x60252374)
+I (D:\keli5\ARM\ARMCC\include\stdarg.h)(0x60252376)
+F (.\System\OLED.h)(0x6AF87E65)()
+F (.\System\OLED_Data.c)(0x6AF87E65)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\oled_data.o --omf_browse .\objects_fixed1k\oled_data.crf --depend .\objects_fixed1k\oled_data.d)
+I (System\OLED_Data.h)(0x6AF87E65)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+F (.\System\OLED_Data.h)(0x6AF87E65)()
+F (.\System\delay.c)(0x6AF8BA9C)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\delay.o --omf_browse .\objects_fixed1k\delay.crf --depend .\objects_fixed1k\delay.d)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (System\delay.h)(0x6AF87E65)
+F (.\System\delay.h)(0x6AF87E65)()
+F (.\startup\core_cm3.h)(0x00000000)()
+F (.\startup\startup_stm32h743xx.s)(0x6AF8C17B)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32H743xx SETA 1"--list .\objects_fixed1k\startup_stm32h743xx.lst --xref -o .\objects_fixed1k\startup_stm32h743xx.o --depend .\objects_fixed1k\startup_stm32h743xx.d)
+F (.\startup\system_stm32h7xx.c)(0x6AF8B84E)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\system_stm32h7xx.o --omf_browse .\objects_fixed1k\system_stm32h7xx.crf --depend .\objects_fixed1k\system_stm32h7xx.d)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (D:\keli5\ARM\ARMCC\include\math.h)(0x60252378)
+F (.\Library\LL\stm32h7xx_ll_gpio.c)(0x6AF8B851)(--c99 -c --cpu Cortex-M7.fp.dp -g -O2 --apcs=interwork --split_sections -I .\USER -I .\System -I .\Library\CMSIS -I .\Library\Device -I .\Library\LL --no-multibyte-chars-I.\RTE\_Fixed1k-ID:\keli5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32H743xx -DSTM32H743xx -DUSE_FULL_LL_DRIVER -DUSE_PWR_LDO_SUPPLY -DDATA_IN_D2_SRAM -DHSE_VALUE="25000000" -DRLC_APP_FIXED_1KHZ="1"-o .\objects_fixed1k\stm32h7xx_ll_gpio.o --omf_browse .\objects_fixed1k\stm32h7xx_ll_gpio.crf --depend .\objects_fixed1k\stm32h7xx_ll_gpio.d)
+I (Library\LL\stm32h7xx_ll_gpio.h)(0x6AF8B851)
+I (.\Library\Device\stm32h7xx.h)(0x6AF8B84E)
+I (.\Library\Device\stm32h743xx.h)(0x6AF8B84E)
+I (.\Library\CMSIS\core_cm7.h)(0x67595818)
+I (D:\keli5\ARM\ARMCC\include\stdint.h)(0x6025237E)
+I (.\Library\CMSIS\cmsis_version.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_compiler.h)(0x67595818)
+I (.\Library\CMSIS\cmsis_armcc.h)(0x67595818)
+I (.\Library\CMSIS\mpu_armv7.h)(0x67595818)
+I (.\Library\Device\system_stm32h7xx.h)(0x6AF8B84E)
+I (Library\LL\stm32h7xx_ll_bus.h)(0x6AF8B6EA)

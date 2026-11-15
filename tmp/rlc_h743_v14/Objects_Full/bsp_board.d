@@ -1,0 +1,15 @@
+.\objects_full\bsp_board.o: System\BSP_Board.c
+.\objects_full\bsp_board.o: System\BSP_PinMap.h
+.\objects_full\bsp_board.o: System\BSP_Board.h
+.\objects_full\bsp_board.o: System\RLC_Types.h
+.\objects_full\bsp_board.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_full\bsp_board.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects_full\bsp_board.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_full\bsp_board.o: System\BSP_Clock.h
+.\objects_full\bsp_board.o: System\BSP_GPIO.h
+.\objects_full\bsp_board.o: System\BSP_USART.h
+.\objects_full\bsp_board.o: System\DDS_Signal.h
+.\objects_full\bsp_board.o: System\ADC_Sample.h
+.\objects_full\bsp_board.o: System\Range_Switch.h
+.\objects_full\bsp_board.o: System\OLED_I2C.h
+.\objects_full\bsp_board.o: System\delay.h
