@@ -1,0 +1,17 @@
+.\objects_fixed1k\stm32f10x_rcc.o: Library\stm32f10x_rcc.c
+.\objects_fixed1k\stm32f10x_rcc.o: Library\stm32f10x_rcc.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\startup\stm32f10x.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\startup\core_cm3.h
+.\objects_fixed1k\stm32f10x_rcc.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\startup\system_stm32f10x.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\USER\stm32f10x_conf.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_adc.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\startup\stm32f10x.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_dma.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_flash.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_gpio.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_i2c.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_rcc.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_spi.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_tim.h
+.\objects_fixed1k\stm32f10x_rcc.o: .\Library\stm32f10x_usart.h

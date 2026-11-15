@@ -1,0 +1,17 @@
+.\objects_basic\stm32f10x_tim.o: Library\stm32f10x_tim.c
+.\objects_basic\stm32f10x_tim.o: Library\stm32f10x_tim.h
+.\objects_basic\stm32f10x_tim.o: .\startup\stm32f10x.h
+.\objects_basic\stm32f10x_tim.o: .\startup\core_cm3.h
+.\objects_basic\stm32f10x_tim.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_basic\stm32f10x_tim.o: .\startup\system_stm32f10x.h
+.\objects_basic\stm32f10x_tim.o: .\USER\stm32f10x_conf.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_adc.h
+.\objects_basic\stm32f10x_tim.o: .\startup\stm32f10x.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_dma.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_flash.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_gpio.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_i2c.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_rcc.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_spi.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_tim.h
+.\objects_basic\stm32f10x_tim.o: .\Library\stm32f10x_usart.h

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RLC 电桥破题与开工计划 V1.3</title>
+<style>
+  :root { font: 16px/1.65 "Microsoft YaHei UI","PingFang SC",system-ui,sans-serif; color:#172a30; background:#f1f5f4; }
+  body { margin:0 auto; max-width:960px; padding:32px clamp(16px,5vw,55px) 64px; background:#fff; }
+  header { border-bottom:2px solid #186c60; padding-bottom:20px; }
+  h1 { font-size:clamp(26px,4vw,38px); line-height:1.25; margin:0 0 14px; }
+  h2 { font-size:23px; margin:32px 0 10px; }
+  h3 { font-size:17px; margin:19px 0 6px; }
+  p { margin:8px 0; }
+  a { color:#126559; }
+  nav { display:flex; flex-wrap:wrap; column-gap:18px; row-gap:4px; margin-top:14px; }
+  .version { color:#52646c; font-size:14px; margin-bottom:6px; }
+  .table { overflow-x:auto; margin:12px 0; }
+  table { border-collapse:collapse; width:100%; }
+  pre { margin:0; padding:12px; background:#eef5f3; font: 14px/1.55 Consolas,"Microsoft YaHei UI",monospace; }
+  th,td { text-align:left; padding:7px 10px; border-bottom:1px solid #d9e3e1; vertical-align:top; }
+  th { background:#eef5f3; }
+  .flow { display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:12px; background:#eef5f3; }
+  .flow span { font-weight:600; }
+  code { font:inherit; background:#eef5f3; padding:1px 4px; }
+  li + li { margin-top:6px; }
+  @media print {
+    :root,body { background:#fff; }
+    body { padding:0; }
+    nav { display:none; }
+    h2,h3 { break-after:avoid; }
+    tr { break-inside:avoid; }
+  }
+</style>
+<body>
+<header>
+  <p class="version">思路 V1.3</p>
+  <h1>RLC 电桥破题与开工计划</h1>
+  <p><strong>首个联调目标</strong>　在 1 kHz 下让一颗 1 kΩ 电阻从夹具一路测到屏幕。三人先手算两路波形，再用示波器确认，最后换电容和电感验证电抗符号。</p>
+  <nav aria-label="章节">
+    <a href="#requirements">题目与评分</a><a href="#h743">H743 上板首测</a><a href="#principles">原理与入门实验</a><a href="#implementation">软硬件设计</a><a href="#kelvin">卡尔文夹</a><a href="#roles">分工</a><a href="#schedule">时间轴</a><a href="#acceptance">验收</a>
+  </nav>
+</header>
+<main>
+<section id="requirements">
+  <h2>题目与评分</h2>
+  <div class="table"><table>
+    <thead><tr><th scope="col">项目</th><th scope="col">题目要求</th><th scope="col">分值</th></tr></thead>
+    <tbody>
+      <tr><td>供电</td><td>只接一路外部 +5 V，允许板内变压。</td><td>5</td></tr>
+      <tr><td>激励</td><td>100 Hz、1 kHz、10 kHz 自动切换并显示。TP1 为正弦波，频率误差 ≤0.1%，电平 0.5 Vrms ±10%。</td><td>5</td></tr>
+      <tr><td>识别</td><td>接入元件后一键启动，自动显示 R、L 或 C 及对应数值。</td><td>5</td></tr>
+      <tr><td>电阻</td><td>10 Ω～100 kΩ，误差绝对值 ≤1%。</td><td>15</td></tr>
+      <tr><td>电容</td><td>1 nF～10 µF，误差绝对值 ≤2%。</td><td>15</td></tr>
+      <tr><td>电感</td><td>100 µH～100 mH，误差绝对值 ≤2%。</td><td>15</td></tr>
+      <tr><td>发挥①</td><td>100 kHz 下测 100 pF～100 nF、10 µH～1 mH，误差 ≤2%，单次 ≤1 s。</td><td>15</td></tr>
+      <tr><td>发挥②</td><td>开路和短路校准后，在 100 kHz 测 10 pF 量级，误差 ≤5%，单次 ≤1 s。</td><td>15</td></tr>
+      <tr><td>发挥③</td><td>至少三档自动量程，电阻 10 Ω～1 MΩ，误差 ≤0.5%，单次 ≤1 s。</td><td>15</td></tr>
+      <tr><td>其他发挥</td><td>题目未细化。</td><td>5</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>基础 60 分全部通过后，才能测试发挥。</strong> 题目要求运放把被测电流转换为电压后求复阻抗，禁用集成阻抗测量芯片和现成 LCR 表模块。夹具须固定在装置上，两端或四端均可。商用 LCR 表按装置显示的频率及相同测试电平测参考值。基础部分的具体计时口径可向老师确认。<a href="../原题/测量方向-RLC电桥测量装置.docx">题目原文</a></p>
+</section>
+<section id="h743">
+  <h2>大越 H743VI 上板首测</h2>
+  <p>配套为 <strong>DevEBox H743VI M 版、V1.3 电路图、V1.4 Keil 固件</strong>。固件已通过三目标编译和主机测试，烧录、波形与读数待实测。先按实物丝印确认 MCU、25 MHz 硬件晶振和排针 1 脚。<a href="https://stm32-base.org/assets/pdf/boards/original-schematic-STM32H7XX-M.pdf">大越 M 版原理图</a> · <a href="https://www.st.com/resource/en/datasheet/stm32h743vi.pdf">ST 芯片数据手册</a></p>
+  <div class="table"><table>
+    <thead><tr><th scope="col">连接</th><th scope="col">H743 首测接法</th></tr></thead>
+    <tbody>
+      <tr><td>供电</td><td>外部一路 5 V 接 J2-1，负极接 J2-5。J2-3 取 3.3 V 给前端、DDS 和 OLED，全部共地。</td></tr>
+      <tr><td>下载</td><td>ST-LINK 的 SWDIO、SWCLK、GND 接 J1-4、J1-5、J1-3。探针若有 VTref 输入，接 J1-2。开发板由外部 5 V 供电，探针的电源输出留空。</td></tr>
+      <tr><td>采样</td><td>PA6 / J3-28 采 TP1（主面包板 a9），PC4 / J3-26 采 TP2（b13）。四端时接上 Sense，PA6 改采 VDIFF，PC4 继续采 TP2。</td></tr>
+      <tr><td>激励与显示</td><td>AD9833 的 FSYNC、SCLK、SDATA 接 PA4、PA5、PA7。默认 PA8 / J2-20 提供 8 MHz MCLK。OLED 的 SCL、SDA 接 PB8 / J2-42、PB9 / J2-41。外接按键接 PB10 / J3-12 和 GND。</td></tr>
+    </tbody>
+  </table></div>
+  <ol>
+    <li><strong>裸板确认供电和 SWD。</strong> 用单路 5 V 供电，量 3.3 V。接 ST-LINK，选择 STM32H743VITx，下载 V1.4 的 Fixed1k。</li>
+    <li><strong>核对 DDS 时钟来源。</strong> 使用 PA8 时，先确认模块支持外部 MCLK 并隔离板载振荡器输出。使用模块自带时钟时，PA8 留空，V1.4 按模块实测频率配置后重编译。</li>
+    <li><strong>用 1 kΩ 做两端首测。</strong> 标准电阻直插 d9–d14。按键触发时检查 TP1 是 1 kHz 正弦，目标 0.5 Vrms，TP2 围绕约 1.65 V 且相对 TP1 近似反相。记录实测幅值、频率、OLED 阻值和参考值，确认无削顶后再接夹具。</li>
+  </ol>
+  <p><a href="../代码V1.4(新开发板）/project.uvprojx">Keil 工程</a> · <a href="../代码V1.4(新开发板）/Firmware/RLC_V1.4_Fixed1k.hex">Fixed1k HEX</a> · <a href="../电路图V1.3（新开发板）/RLC电桥思路及接线说明_V1.3.txt">完整排针与焊点表</a> · <a href="../物料清单/RLC电桥_嘉立创商城选料表_V1.2.html">V1.2 备料表</a></p>
+</section>
+<section id="principles">
+  <h2>原理与入门实验</h2>
+  <h3>电压除以电流，幅值和相位都要量</h3>
+  <p>直流测阻用 R = V/I。交流时，电压和电流的正弦波可以在时间上错开。把幅值和相位写成复数，即相量。电压相量除以电流相量得到 Z = R + jX。实部 R 代表耗能成分，虚部 X 是电抗。</p>
+  <div class="table"><table>
+    <thead><tr><th scope="col">元件</th><th scope="col">电流相对电压</th><th scope="col">电抗与计算</th></tr></thead>
+    <tbody>
+      <tr><td>电阻</td><td>理想情况下同相</td><td>X ≈ 0，R 取 Z 的实部</td></tr>
+      <tr><td>电感</td><td>滞后</td><td>X &gt; 0，L<sub>s</sub> = X / (2πf)</td></tr>
+      <tr><td>电容</td><td>超前</td><td>X &lt; 0，C<sub>s</sub> = −1 / (2πfX)</td></tr>
+    </tbody>
+  </table></div>
+  <p>L<sub>s</sub> 和 C<sub>s</sub> 是串联等效值。实际电感有绕组电阻，电容有损耗。和商用表比较时，频率、电平和等效模式都要对齐。<a href="https://www.keysight.com/us/en/assets/7018-06840/application-notes/5950-3000.pdf">Keysight 阻抗测量手册</a></p>
+  <h3>运放如何把电流变成可以采样的电压</h3>
+  <p>负反馈让运放反相端的电位跟随基准 V<sub>bias</sub>。流进运放输入端的电流很小，被测电流主要走反馈支路。因此量反馈支路电压，就能反推被测电流。这是自动平衡电桥的跨阻放大器（TIA）。自动量程由固件切换反馈档位完成。<a href="https://www.ti.com/lit/ab/sboa496/sboa496.pdf">TI 自动平衡电桥说明</a></p>
+  <div class="flow" aria-label="测量信号链"><span>正弦源与 TP1</span> → <span>固定夹具与元件</span> → <span>TIA 与 TP2</span> → <span>双路采样</span> → <span>算复阻抗</span> → <span>显示</span></div>
+  <p>采样一路取元件两端电压 V<sub>DUT</sub>，另一路取电流代理信号 V<sub>TIA</sub>。在反相端交流摆动很小、反馈是纯电阻 R<sub>f</sub> 的入门电路中，I<sub>DUT</sub> ≈ −V<sub>TIA</sub>/R<sub>f</sub>，因此 Z<sub>DUT</sub> ≈ −R<sub>f</sub> × V<sub>DUT</sub>/V<sub>TIA</sub>。负号来自反相。升到高频后，实测反相端交流摆动和反馈电容的影响，必要时测两处差分电压并用有效反馈阻抗 Z<sub>f</sub> 计算。<a href="https://www.ti.com/lit/ug/tidueu6b/tidueu6b.pdf">TI 前端参考设计</a></p>
+  <h3>第一堂台架实验</h3>
+  <p>用 1 kHz、1 kΩ 反馈档。以下按元件两端实际为 0.5 Vrms 和理想器件计算。示波器地夹接板上 GND。观察围绕板内偏置的交流波形。</p>
+  <div class="table"><table>
+    <thead><tr><th scope="col">样件</th><th scope="col">理想阻抗</th><th scope="col">TP2 交流幅值</th><th scope="col">检查</th></tr></thead>
+    <tbody>
+      <tr><td>1 kΩ</td><td>1000 + j0 Ω</td><td>0.500 Vrms</td><td>TP2 对激励约反相 180°。反算电流后，电压与电流同相。</td></tr>
+      <tr><td>100 nF</td><td>−j1592 Ω</td><td>0.314 Vrms</td><td>算出的 X 为负。</td></tr>
+      <tr><td>100 mH</td><td>+j628 Ω</td><td>约 0.796 Vrms</td><td>算出的 X 为正。实际还有绕组电阻。</td></tr>
+    </tbody>
+  </table></div>
+  <p>三人轮流手算、接探头、用数据算回数值。若已知电阻出现明显虚部，检查两路极性、采样时差和模拟通道相移。</p>
+</section>
+<section id="implementation">
+  <h2>软硬件设计</h2>
+  <h3>模拟前端</h3>
+  <ol>
+    <li><strong>激励与供电。</strong> 大越 H743VI M 版用外接 AD9833 DDS 产生正弦，经滤波、幅度调整和驱动缓冲送 TP1。两路 ADC 由定时器同步触发，用 DMA 传输。单 5 V 可用低噪声中点偏置留出摆幅。0.5 Vrms 正弦约 1.414 Vpp。逐档在轻载和低阻负载下量 TP1 的幅度、频率、削顶和振铃。</li>
+    <li><strong>反馈档。</strong> 从 1 kΩ 固定档起步。后续以 10 Ω、100 Ω、1 kΩ、10 kΩ、100 kΩ 为候选反馈阻值，按 ADC 摆幅、噪声和稳定性调整。预留补偿电容，反相端走线短。检查开关在低阻档的导通电阻、高阻档的漏电和寄生电容。换档期间保持受控反馈，等瞬态结束再采样。</li>
+    <li><strong>电流预算。</strong> 100 µH 在 10 kHz 的理想电抗为 6.28 Ω。若元件实际承受 0.5 Vrms，电流约 80 mArms、113 mA 峰值，激励和 TIA 反馈回路都要核算。短路和试探选频时要有限流。若 TP1 后加限流元件，确认评测如何取 TP1 电平和元件实际测试电平。</li>
+    <li><strong>夹具与 PCB。</strong> 台架用短线，正式板预留固定夹具、Kelvin 取样位置、TP1、TP2、GND 和缓冲后的电压测点。先验证低阻和高阻端，再定板。<a href="https://www.ti.com/tool/TIDA-060029">TI 原理图与 PCB 参考资料</a></li>
+  </ol>
+  <h3>固件和算法</h3>
+  <ol>
+    <li><strong>同一时基采两路。</strong> 定时器触发 ADC，优先同步采样。选完整周期窗，起步可用 8 周期。每路去直流偏置，与同频正弦和余弦做相关，得到 I/Q，再算复数比值。100 Hz 下 8 周期用 80 ms。用交替采样时标定通道时差。</li>
+    <li><strong>从数据质量选反馈档。</strong> 用可保护前端的设置做短窗试测。削顶则降跨阻增益，电流通道幅值太小则升增益。加入稳定时间与切档滞回。确认激励有效，且适用档位仍测不到电流后，再提示开路。</li>
+    <li><strong>识别、选频、复测。</strong> 可以 1 kHz 起测。小 L 或小 C 尝试升频，大 C 尝试降频。大 L 在经过验证的频段测量，留意自谐振。电阻选择误差稳定的频点。结合各频点、各档位的残余虚部设分类阈值，低 Q 或判断不稳时用第二频点复核。</li>
+    <li><strong>显示和记录。</strong> 屏上显示类型、数值、单位和实际频率。串口约定频率、反馈档、采样率、两路 I/Q、ReZ、ImZ、过载标志和耗时，并可导出原始波形。先用纯电阻校正两路幅相，再用独立样件验证。</li>
+  </ol>
+  <p>四个基础端点的选频起点为 <strong>1 nF @ 10 kHz ≈15.9 kΩ，10 µF @ 100 Hz ≈159 Ω，100 µH @ 10 kHz ≈6.28 Ω，100 mH @ 1 kHz ≈628 Ω</strong>。数值是理想电抗，最终频率按实测误差确定。</p>
+</section>
+<section id="kelvin">
+  <h2>卡尔文夹与两端改四端</h2>
+  <p><strong>面包板两端首测，洞洞板按四端预留，装机时用实测决定接法。</strong> 题目允许两端或四端，但都要把夹具固定在装置上。四端夹具可用两只双触点 Kelvin 夹，每只夹一根元件引脚，分别引出通电线 Force 和测压线 Sense。</p>
+  <div class="table"><pre aria-label="两端与四端取样接线对照">两端 · 在板端用 TP1 和虚地近似元件两端电压
+
+  TP1 → d9 ── 普通夹 ──[ DUT ]── 普通夹 ── d14 → TIA
+  PA6 取 TP1                                    PC4 取 TP2
+
+四端 · 在元件两侧引脚内侧取差分电压
+
+            Force+   Sense+     Sense−  Force−
+  d9 ──────────●──────●──[ DUT ]──●──────●────────── d14 → TIA
+                      │           │
+                      ↓           ↓
+                      +           −
+                   ┌──────────────────┐
+                   │ 高阻差分取样前端 │ → VDIFF → PA6
+                   └──────────────────┘
+
+  TP2 → PC4 · 与 PA6 同步采样</pre></div>
+  <p>通电线上的导线和接触压降主要出现在外侧。Sense 接点尽量靠近元件本体，四条线分别走到夹具触点，再经元件引脚同端连通。上电前用万用表查导通与短路，夹具脱离电路、夹绝缘片时，四根引线应相互绝缘。夹住导体后，同端两线才通过导体接通。板上若提前用锡条合并同端 Force 和 Sense，共用线段的压降仍会被量进去。<a href="https://www.tek.com/en/documents/technical-article/two-wire-vs-four-wire-resistance-measurements-which-configuration-makes-s">Keithley 两线与四线原理</a></p>
+  <h3>按现有电路改接</h3>
+  <div class="table"><table>
+    <thead><tr><th scope="col">电路节点</th><th scope="col">两端首测</th><th scope="col">四端测量</th></tr></thead>
+    <tbody>
+      <tr><td>通电高端 Hc / Force+</td><td>主板 d9 接高端夹具。首轮先直插 1 kΩ。</td><td>仍从主板 d9 接元件高端外侧触点。</td></tr>
+      <tr><td>通电低端 Lc / Force−</td><td>主板 d14 接低端夹具，回 TIA 反相端。</td><td>仍回主板 d14。该节点是带偏置的求和点。</td></tr>
+      <tr><td>测压端 Hp / Sense+、Lp / Sense−</td><td>不用独立测压线。</td><td>各从元件一端的内侧触点接入高输入阻抗取样前端。</td></tr>
+      <tr><td>PA6 / ADC1_INP3（J3-28）</td><td>选 TP1（主板 a9）。</td><td>选差分输出 VDIFF。目标 VDIFF = 1.65 V + G × (Sense+ − Sense−)。</td></tr>
+      <tr><td>PC4 / ADC2_INP4（J3-26）</td><td>接 TP2（主板 b13），采 TIA 输出。</td><td>仍接 TP2，与 PA6 同步采样。</td></tr>
+    </tbody>
+  </table></div>
+  <ol>
+    <li>先在 d9 ↔ d14 直插 1 kΩ，刷 <code>Fixed1k</code>，用 1 kHz、1 kΩ 反馈档检查 TP1、TP2、读数和虚部。测通再用两根短线接固定两端夹具，重插确认读数稳定。</li>
+    <li>断电换双触点夹。保留两根 Force 线，把两根 Sense 线送差分取样前端。用 <code>TP1 / PA6 / VDIFF</code> 三针跳帽选接 PA6，一次只接一个信号。TP1 单独保留给示波器验激励，另留 VDIFF 和 GND。照电路图的器件型号、脚位和实际板型接线。面包板取样小板用两颗 MCP6022，U2 双路缓冲，U3 做差分和基准缓冲。面包板小板上 Sense+ 接 j5、Sense− 接 b6，PA6 从主板 a9 移到小板 j17（VDIFF）。洞洞板用 ADC 跳帽选择 PA6 的输入，两端短接 1–2（TP1），四端短接 2–3（VDIFF）。洞洞板按图将 Force+／Force− 接 A8／A16，Sense+／Sense− 接 H25／D30。面包板与洞洞板的孔编号各自独立。</li>
+    <li>四端首次上电先在 VDIFF 测直流偏置和交流增益，检查正负极性、相位、带负载的波形，以及 PA6 输入全程位于 ADC 的实际范围内。用同一颗 1 kΩ 复测；差分增益先按 1 倍设计，核对运放输入共模范围、差分电阻匹配、输出摆幅和 ADC 驱动能力。实测增益误差和相移进入通道校正。</li>
+    <li>固件由 PA6、PC4 采样计算两路相量。四端时用 PA6 的交流相量作为 V<sub>DUT</sub>，实测差分通道有增益或相位误差时按实测值补偿。由 PC4 的 TIA 波形和有效 Z<sub>f</sub> 反算 I<sub>DUT</sub>，再算 Z = V<sub>DUT</sub> / I<sub>DUT</sub>。高频须验证反相端交流摆动、取样输入负载和反馈阻抗近似；必要时测反馈支路差分电压。换了夹具或 PA6 来源就重新做幅相验证和夹具补偿。跳帽无自动识别信号，联调记录标清模式；若固件只有一套可用校准记录，每次切换重做相应校准。</li>
+  </ol>
+  <p><a href="../电路图V1.3（新开发板）/面包板电路图_V1.3.svg">V1.3 面包板改接图</a> · <a href="../电路图V1.3（新开发板）/洞洞板焊接示意图_V1.3.svg">V1.3 洞洞板焊接图</a> · <a href="../电路图V1.3（新开发板）/RLC电桥思路及接线说明_V1.3.txt">V1.3 逐孔接线说明</a> · <a href="https://www.ti.com/lit/ug/tidueu6b/tidueu6b.pdf">TI 自动平衡电桥取样参考</a></p>
+  <p>大越 H743VI M 版配套 V1.3 电路图和 V1.4 固件，首测选 <code>Fixed1k</code>。V1.4 的 1 kΩ 反馈档使用图纸标称的 22 pF 并联电容，实装后按器件和频响复核。图上只有固定反馈档，<code>Basic</code> 和 <code>Full</code> 的自动量程需要实际反馈档和切换电路。100 kHz 的 TP1 电平、四端精度和整机指标待上板验证。</p>
+  <h3>洞洞板怎么焊，精度怎么验</h3>
+  <ul>
+    <li><strong>板上布局。</strong> 夹具固定在模拟前端旁。洞洞板跨距用绝缘铜线，焊锡用于连接焊点。Force 按电流路径布线，Sense 成对短走，高阻取样输入和 TIA 反相端附近少留多余铜箔及焊盘残段，远离 AD9833 时钟与 OLED 数字线。给跳帽、四个端子和前端留位。检查虚焊、锡桥，再固定夹具和线束。</li>
+    <li><strong>10 Ω 先排除过载。</strong> 若元件两端确为 0.5 Vrms，电流约 50 mArms、71 mA 峰值。1 kΩ 反馈在理想线性条件下需 50 Vrms 输出，首测档会超出摆幅。进入低阻测试前换经验证的低反馈档，核对驱动器和 TIA 的电流能力与限流，确认 TP1 和 TP2 无削顶。四端取样能降低串联压降误差，驱动能力仍要单独验。</li>
+    <li><strong>同一颗 10 Ω 做 A/B。</strong> 选相同频率、电平和可用反馈档，两端和四端各自校正，分别重夹至少 5 次。用同条件商用表值作参考，记偏差、极差、TP1 和 TP2 幅值。基础 ±1% 对应 100 mΩ 总误差，发挥 ±0.5% 对应 50 mΩ，夹具只分到其中一部分。两端低阻项已稳定过线可用于基础评测；若重夹误差明显吃掉裕量，而四端验证有效，则启用四端。</li>
+    <li><strong>做一个能看出差别的实验。</strong> 在一侧 Force 路径上串入约 0.10 Ω 的已知电阻，位置在 Sense 接点外侧。确保激励和跨阻都不削顶。两端未重做短路补偿的读数预期会出现约 0.10 Ω 的增量；四端取样理想情况下对这一段压降不敏感。这个实验用来验证取样点，正式验收恢复正常接线后重校。</li>
+    <li><strong>100 kHz / 10 pF 单独验。</strong> 10 pF 的 5% 只相当于 0.5 pF。固定夹距、线束和安装姿态，在元件实际夹持位置做开路、短路校准。开路时如果夹具的 Sense 触点会悬空，用两块相互绝缘的导电端片，在正常夹持位置分别接通各端自己的 Force 和 Sense，并保持两端之间开路。短路时用低阻短接片接通两端，确认驱动和 TIA 在线性范围内。开路数据看寄生导纳，短路数据看串联残余。比较重复空夹的基线漂移，并用独立 10 pF 样件重夹复测。探头接到高阻测点会改变寄生，最终读数按评测接法复核。若补偿后仍不稳，优先缩短夹具和前端、改善布局，再决定是否转紧凑 PCB。</li>
+  </ul>
+  <p><a href="https://www.keysight.com/us/en/assets/7018-06840/application-notes/5950-3000.pdf">Keysight 夹具与开短路补偿</a></p>
+</section>
+<section id="roles">
+  <h2>三人分工与接口</h2>
+  <div class="table"><table>
+    <thead><tr><th scope="col">负责人</th><th scope="col">首日任务</th><th scope="col">联调交付</th></tr></thead>
+    <tbody>
+      <tr><td>擅长 PCB 和焊接的队友</td><td>按图用两端搭固定反馈 TIA。提前留 Force、Sense、差分前端和 PA6 跳帽。</td><td>交付原理图、测点和档位表。四端启用前交夹具导通表、VDIFF 幅相及低阻驱动波形。</td></tr>
+      <tr><td>固件队友</td><td>用 AD9833 输出 1 kHz，跑 Fixed1k，并记录 PA6 的取样来源和两路原始数据。</td><td>交付通道极性、采样率、同窗数据和一键测量固件。验证 PA6 改接后的幅相校正、换档选频与计时。</td></tr>
+      <tr><td>你</td><td>借示波器和 LCR 表，编号样件，带三人做手算与波形实验。</td><td>交付 I/Q 复算、分频分档校正表及独立验收记录。负责 10 Ω 两端／四端重夹对照和 10 pF 校准重复性。</td></tr>
+    </tbody>
+  </table></div>
+  <p>后两人按编程经验互换。第一次合并前定下两路极性、反馈档编号、换档等待时间、串口字段和单位。硬件用示波器验证，固件用已知信号验证，你用同批数据独立复算。</p>
+</section>
+<section id="schedule">
+  <h2>工作时间轴</h2>
+  <p>首版按 32 个累计工作小时（约 4 天 × 8 小时）估算。日期和 PCB 到货时间待定。加工期间继续做算法、校正和样件验证。<a href="三人联调时间轴_V1.3.html">打开可点击的三人联调时间轴</a></p>
+  <div class="table"><table>
+    <thead><tr><th scope="col">累计时间</th><th scope="col">阶段</th><th scope="col">完成标志</th></tr></thead>
+    <tbody>
+      <tr><td>0–4 h</td><td>理解原理并搭台架</td><td>核对 H743 版次、5 V 供电和 SWD，按实际 DDS 时钟配置 Fixed1k。硬件预留四端。</td></tr>
+      <tr><td>4–12 h</td><td>测通电阻</td><td>先直插，再用两端夹具测通 1 kΩ，换 L 和 C 验证电抗符号。若接入四端，先同样复测 1 kΩ。</td></tr>
+      <tr><td>12–20 h</td><td>基础全测</td><td>确认低阻档后做 10 Ω 对照；选定正式接法后，基础项逐项实测。</td></tr>
+      <tr><td>20–28 h</td><td>补基础或冲发挥</td><td>基础过线后测试 100 kHz。根据低阻余量、高阻信噪比和空夹基线决定下一发挥项。</td></tr>
+      <tr><td>28–32 h</td><td>冻结与盲测</td><td>固定夹具和跳帽模式，重校并断电复测，三人轮流完成演示。</td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section id="acceptance">
+  <h2>样件验收与发挥顺序</h2>
+  <p><strong>基础盲测。</strong> R 先备 10 Ω、1 kΩ、100 kΩ。C 先备 1 nF、100 nF、10 µF。L 先备 100 µH、10 mH、100 mH。再补档位交界附近的样件。校准和验收用不同样件，每个验收样建议重插 3 次，记录商用表参考值、实测值、误差、频率、档位、分类和耗时。误差 = (实测值 − 参考值) / 参考值 × 100%，按绝对值逐点验收。</p>
+  <ol>
+    <li><strong>先验证 100 kHz。</strong> 用已知电阻检查幅相比值，然后测 100 pF、100 nF、10 µH、1 mH。100 kHz 下 100 ns 通道时差等于 3.6°。重点关注 10 µH 重载和 100 pF 高阻两端。</li>
+    <li><strong>按实测决定下一项。</strong> 若 10 Ω 的接触误差和 1 MΩ 的低电流读数都稳定，优先做宽量程电阻。若空载基线稳定，验证 10 pF。其 5% 只相当于 0.5 pF。开路补偿夹具寄生导纳，短路补偿残余串联阻抗。按实际使用的频率和档位校准，再用独立样件复测。<a href="https://helpfiles.keysight.com/csg/e4990a/measurement/calibration/fixture_compensation.htm">Keysight 夹具补偿说明</a></li>
+    <li><strong>计时看最慢一次。</strong> 从按键到稳定显示，包含换档、换频、等待、采样、重测和刷新。重点记录跨档样件、极端值及插拔后的第一次测量。</li>
+  </ol>
+</section>
+</main>
+</body>
+</html>
