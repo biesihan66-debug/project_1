@@ -1,0 +1,10 @@
+.\objects_basic\calibration_flash_storage.o: System\calibration_flash_storage.c
+.\objects_basic\calibration_flash_storage.o: System\board_pin_map.h
+.\objects_basic\calibration_flash_storage.o: System\stm32f103_registers.h
+.\objects_basic\calibration_flash_storage.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_basic\calibration_flash_storage.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_basic\calibration_flash_storage.o: System\rlc_board_internal.h
+.\objects_basic\calibration_flash_storage.o: System\stm32_rlc_board.h
+.\objects_basic\calibration_flash_storage.o: System\rlc_measurement_port.h
+.\objects_basic\calibration_flash_storage.o: System\rlc_measurement_types.h
+.\objects_basic\calibration_flash_storage.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h

@@ -1,0 +1,24 @@
+{
+  "version": "V1.4",
+  "delivered_files": {
+    "00_两线改四线总览_V1.4.png": "e4b995575846161f13df06c0158b281772267e8f776250f4f3a9c0315756b45d",
+    "00_两线改四线总览_V1.4.svg": "ed8ece40c5df379a43cc670f1e6671b8cf638536250ce98f9c6bfde13f9ec357",
+    "01_洞洞板元件安装_V1.4.png": "1aa8735deff5cc55d3e2d0b9f7e733e2bd4bd3d3660ec0d91d8e6fab6da9d65f",
+    "01_洞洞板元件安装_V1.4.svg": "904670b9348dae85462cba3901d49639c0a3ccf6f6722907b916ae48d6a8aa56",
+    "02_洞洞板两线底面焊接_V1.4.png": "1bda43bfc4e7b860b3538ad4149189060c536d133f76a2a1e848ed9d88e935d0",
+    "02_洞洞板两线底面焊接_V1.4.svg": "43a812a7a43871b3acb3bb110c1232e66a2ea456a7c9470c8c0da0fcd021bb35",
+    "03_洞洞板四线补焊_V1.4.png": "0fab464d402b820a9f8ad664415d11404befb67643e64694c3fd4dec76a9c6b6",
+    "03_洞洞板四线补焊_V1.4.svg": "bf9c3d0f9a177f27fa324b8dbec8ca122fa7def5989de4a4c59006975a645ddd",
+    "04_洞洞板正面跳线与2改4_V1.4.png": "494765c33c6eaaf77bc5010e5e768a71fbf789f4a7805e44cbac1f01ed2da539",
+    "04_洞洞板正面跳线与2改4_V1.4.svg": "d598431f5280bd8b6e8089bcf5b4eccb2333143389271a02d9bd1ee5aed03ed5",
+    "RLC电桥思路及接线说明_V1.4.txt": "96daaabf24cf755cfe70fca205911a894d0036864b434dc6f324511e50c39743",
+    "先看这里_V1.4.txt": "59ae5d60437993bae1f51c91db5a6a3fb011c620c7bf8d9b530fd1e46558f401",
+    "洞洞板焊接示意图_V1.4.png": "505419904a60ef31827e6c2b7e581e892560326aae5afaf737782ed18b68abcd",
+    "洞洞板焊接示意图_V1.4.svg": "2adc19c48c2278bfbd6654778f773bcac1aba87a727ba6b65084ebc83c3d76a5",
+    "洞洞板连接核对_V1.4.txt": "36f1410f8f78c375b361b88a8d2d1e06abd5dddf583bc91261732ccbd0e1e2f3"
+  },
+  "project_desktop_identical": true,
+  "protected_old_files": 15,
+  "old_files_unchanged": true,
+  "bench_acceptance": "pending"
+}

@@ -1,0 +1,10 @@
+.\objects_basic\measurement_debug_output.o: System\measurement_debug_output.c
+.\objects_basic\measurement_debug_output.o: System\measurement_debug_output.h
+.\objects_basic\measurement_debug_output.o: System\rlc_measurement_types.h
+.\objects_basic\measurement_debug_output.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_basic\measurement_debug_output.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects_basic\measurement_debug_output.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_basic\measurement_debug_output.o: System\measurement_text_format.h
+.\objects_basic\measurement_debug_output.o: D:\keli5\ARM\ARMCC\Bin\..\include\float.h
+.\objects_basic\measurement_debug_output.o: System\stm32_rlc_board.h
+.\objects_basic\measurement_debug_output.o: System\rlc_measurement_port.h

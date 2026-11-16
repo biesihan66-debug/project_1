@@ -1,0 +1,11 @@
+.\objects_full\main.o: USER\main.c
+.\objects_full\main.o: .\System\automatic_rlc_measurement.h
+.\objects_full\main.o: .\System\open_short_calibration.h
+.\objects_full\main.o: .\System\rlc_measurement_types.h
+.\objects_full\main.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects_full\main.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects_full\main.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects_full\main.o: .\System\rlc_measurement_port.h
+.\objects_full\main.o: .\System\measurement_debug_output.h
+.\objects_full\main.o: .\System\oled_result_display.h
+.\objects_full\main.o: .\System\stm32_rlc_board.h
