@@ -30,5 +30,5 @@
 <text x="66" y="1024" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >④ 断电接回 PA6/PC4。运行 V1.4 Fixed1k，K2 短按测量；记录阻值、参考值和重复测量稳定性。</text>
 <text x="66" y="1056" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >⑤ 断电换两线夹具，仍测同一颗 1 kΩ；稳定后再搭 S 板、加独立 Sense、换 PA6 到 S:g21。</text>
 <text x="66" y="1088" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >示波器地夹只接 GND，不能夹 F− 或 VREF。没有示波器时可做直流和阻值初查，幅相与削顶尚未验收。</text>
-<text x="66" y="1120" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >Fixed1k 长按仅显示 BENCH TEST。Basic/Full 的校准和自动量程必须配实际反馈档及切换硬件后再做。</text>
+<text x="66" y="1120" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >Fixed1k 长按仅显示 BENCH TEST。Full 的校准和自动量程必须配实际反馈档及切换硬件后再做。</text>
 </svg>

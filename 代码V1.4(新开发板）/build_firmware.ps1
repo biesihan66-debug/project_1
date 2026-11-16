@@ -8,7 +8,7 @@ Calibration stays in Bank 2. This script only compiles and links the project.
 #>
 [CmdletBinding()]
 param(
-    [ValidateSet('Full', 'Basic', 'Fixed1k', 'All')]
+    [ValidateSet('Full', 'Fixed1k', 'All')]
     [string]$Target = 'Full',
     [string]$Uv4Path
 )
@@ -71,7 +71,7 @@ function Confirm-HexFlashRange {
 
 $projectPath = Join-Path $PSScriptRoot 'project.uvprojx'
 $firmwarePath = Join-Path $PSScriptRoot 'Firmware'
-$targetList = if ($Target -eq 'All') { 'Full', 'Basic', 'Fixed1k' } else { $Target }
+$targetList = if ($Target -eq 'All') { 'Full', 'Fixed1k' } else { $Target }
 
 foreach ($buildTarget in $targetList) {
     $objectDirectory = Join-Path $PSScriptRoot "Objects_$buildTarget"

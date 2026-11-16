@@ -6,14 +6,12 @@
  * 应用状态与位置：
  * button 的按键状态已封装在 Key.c，应用只读取 KeyEvent。
  * app_page 记录测量/开路校准/短路校准页面；display_ready 记录 OLED 是否可用。
- * measurement_mode 按 Keil 构建选项确定基础/扩展模式，不在运行中变化。
  * active_calibration 供测量读，pending_calibration 由开短路流程写，
  * 两者是本文件的静态变量。校准数组下标见 RLC_Calibration.h，
  * 配对成功并写入板级 Flash 后才更新 active_calibration。
  * RunMeasurement() 的 result 在本次调用栈上，类型/数值/频率/量程分别
  * 送到 OLED 第 1/2/3/4 行，I/Q、复阻抗和用时经 USART 输出。
- * RLC_APP_FIXED_1KHZ 用于 1 kHz / 1 kΩ 固定台架，RLC_APP_BASIC_ONLY
- * 用于基础三频验证，常规构建启用含 100 kHz 的自动测量。
+ * RLC_APP_FIXED_1KHZ 用于 1 kHz / 1 kΩ 固定台架；Full 使用含 100 kHz 的自动测量。
  */
 #include "App_RLC.h"
 #include "Key.h"
@@ -25,10 +23,6 @@
 
 #ifndef RLC_APP_FIXED_1KHZ
 #define RLC_APP_FIXED_1KHZ 0
-#endif
-
-#ifndef RLC_APP_BASIC_ONLY
-#define RLC_APP_BASIC_ONLY 0
 #endif
 
 typedef enum
@@ -43,7 +37,6 @@ static AppPage app_page = APP_MEASURE;
 static RLC_Calibration active_calibration;
 static RLC_Calibration pending_calibration;
 static bool display_ready;
-static const RLC_Mode measurement_mode = RLC_APP_BASIC_ONLY ? RLC_MODE_BASIC : RLC_MODE_EXTENDED;
 
 /* 总线事务失败后，下次按键时可重新初始化 OLED。 */
 static void EnsureDisplay(void)
@@ -66,8 +59,6 @@ static void ShowReady(const char *hint)
 {
 #if RLC_APP_FIXED_1KHZ
     ShowPage("RLC METER", "PRESS TO MEASURE", "FIXED 1 KHZ", hint);
-#elif RLC_APP_BASIC_ONLY
-    ShowPage("RLC METER", "PRESS TO MEASURE", "BASIC AUTO", hint);
 #else
     ShowPage("RLC METER", "PRESS TO MEASURE", "EXTENDED AUTO", hint);
 #endif
@@ -97,7 +88,7 @@ static void RunMeasurement(uint32_t command_ms)
 #if RLC_APP_FIXED_1KHZ
     result = RLC_MeasureFixed(&active_calibration, RLC_FREQUENCY_1_KHZ, RLC_RANGE_1_KOHM);
 #else
-    result = RLC_MeasureAuto(&active_calibration, measurement_mode);
+    result = RLC_MeasureAuto(&active_calibration, RLC_MODE_EXTENDED);
 #endif
     if (result.range_index < RLC_RANGE_COUNT)
     {
@@ -118,7 +109,7 @@ static void CaptureCalibrationStep(void)
     RLC_Status status;
 
     ShowPage(title, "CAPTURING", "", "PLEASE WAIT");
-    status = RLC_CaptureCalibration(&pending_calibration, open, measurement_mode);
+    status = RLC_CaptureCalibration(&pending_calibration, open, RLC_MODE_EXTENDED);
     if (status != RLC_STATUS_OK)
     {
         ShowCalibrationPrompt(OLED_GetStatusText(status));
