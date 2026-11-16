@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1600" viewBox="0 0 1900 1600" font-family="Microsoft YaHei,sans-serif">
+<rect x="0" y="0" width="1900" height="1600" rx="8" fill="#f3f6f5" stroke="none"/>
+<text x="48" y="63" font-size="34" fill="#233849" font-weight="700" text-anchor="start" >RLC / 面包板 V1.4</text>
+<text x="48" y="115" font-size="32" fill="#233849" font-weight="700" text-anchor="start" >06 / 外接模块、K2 按键与测量顺序</text>
+<text x="48" y="158" font-size="20" fill="#567083" font-weight="400" text-anchor="start" >模块放面包板外，排针之间直接连接；主板只留下模拟电路</text>
+<rect x="42" y="210" width="1816" height="84" rx="8" fill="white" stroke="#d9e3e0"/>
+<text x="64" y="241" font-size="22" fill="#233849" font-weight="700" text-anchor="start" >H743 → AD9833</text>
+<text x="64" y="273" font-size="22" fill="#567083" font-weight="400" text-anchor="start" >PA4/J3-30 → FSYNC；PA5/J3-29 → SCLK；PA7/J3-27 → SDATA。</text>
+<rect x="42" y="306" width="1816" height="84" rx="8" fill="white" stroke="#d9e3e0"/>
+<text x="64" y="337" font-size="22" fill="#233849" font-weight="700" text-anchor="start" >DDS 时钟</text>
+<text x="64" y="369" font-size="22" fill="#567083" font-weight="400" text-anchor="start" >默认 PA8/J2-20 → MCLK（8 MHz）；接入前须隔离模块板载振荡器输出。</text>
+<rect x="42" y="402" width="1816" height="84" rx="8" fill="white" stroke="#d9e3e0"/>
+<text x="64" y="433" font-size="22" fill="#233849" font-weight="700" text-anchor="start" >OLED</text>
+<text x="64" y="465" font-size="22" fill="#567083" font-weight="400" text-anchor="start" >PB8/J2-42 → SCL；PB9/J2-41 → SDA；VCC=3.3 V，GND 共地。</text>
+<rect x="42" y="498" width="1816" height="84" rx="8" fill="white" stroke="#d9e3e0"/>
+<text x="64" y="529" font-size="22" fill="#233849" font-weight="700" text-anchor="start" >主板供电</text>
+<text x="64" y="561" font-size="22" fill="#567083" font-weight="400" text-anchor="start" >J2-3 → M:P25；J2-5 → M:G25。DDS/OLED 也取 3.3 V，共地。</text>
+<rect x="42" y="594" width="1816" height="84" rx="8" fill="white" stroke="#d9e3e0"/>
+<text x="64" y="625" font-size="22" fill="#233849" font-weight="700" text-anchor="start" >模拟信号</text>
+<text x="64" y="657" font-size="22" fill="#567083" font-weight="400" text-anchor="start" >DDS VOUT → M:i2；PA6/J3-28 → M:a24；PC4/J3-26 → M:d19。</text>
+<rect x="42" y="690" width="1816" height="84" rx="8" fill="white" stroke="#d9e3e0"/>
+<text x="64" y="721" font-size="22" fill="#233849" font-weight="700" text-anchor="start" >K2 代替外接按钮</text>
+<text x="64" y="753" font-size="22" fill="#567083" font-weight="400" text-anchor="start" >只加 J3-25（PC5）↔ J3-12（PB10）一根线；K1 暂不用，RST 为复位。</text>
+<rect x="42" y="820" width="1816" height="332" rx="8" fill="white" stroke="#d9e3e0"/>
+<text x="66" y="857" font-size="25" fill="#233849" font-weight="700" text-anchor="start" >首测顺序：每关通过，再接下一部分</text>
+<text x="66" y="896" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >① 不插运放，先查短路和四条轨通断。只给 H743 一路电源；USB 供电与外部 5 V 二选一。</text>
+<text x="66" y="928" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >② 只接第 01 张：3.3 V 正常，b7 的 VREF 约为供电的一半。断电后补元件与 M06～M14。</text>
+<text x="66" y="960" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >③ 保留 1 kΩ，先不接 PA6/PC4，只查直流中点；示波器设单次触发，短按 K2 抓测量期间的 TP1/TP2 波形。</text>
+<text x="66" y="992" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >当前固件待机和测量后会停 DDS，不能等着看连续正弦；ADC 尚未接时，屏幕报错不用于判断阻值。</text>
+<text x="66" y="1024" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >④ 断电接回 PA6/PC4。运行 V1.4 Fixed1k，K2 短按测量；记录阻值、参考值和重复测量稳定性。</text>
+<text x="66" y="1056" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >⑤ 断电换两线夹具，仍测同一颗 1 kΩ；稳定后再搭 S 板、加独立 Sense、换 PA6 到 S:g21。</text>
+<text x="66" y="1088" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >示波器地夹只接 GND，不能夹 F− 或 VREF。没有示波器时可做直流和阻值初查，幅相与削顶尚未验收。</text>
+<text x="66" y="1120" font-size="21" fill="#567083" font-weight="400" text-anchor="start" >Fixed1k 长按仅显示 BENCH TEST。Basic/Full 的校准和自动量程必须配实际反馈档及切换硬件后再做。</text>
+</svg>
