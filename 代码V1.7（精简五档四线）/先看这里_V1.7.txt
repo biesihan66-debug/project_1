@@ -1,0 +1,24 @@
+V1.7 Full（精简五档四线）
+
+打开 project.uvprojx，选择 Full。ST-Link 使用 SWD，目标 MCU 为 STM32H743VITx。
+Flash Download 选 Erase Sectors。HEX 在 Firmware/RLC_V1.7_Full.hex。
+若 Keil 配置未自动带入，Debug 选 ST-Link Debugger，Settings 选择 SW，先读出设备 ID。
+项目依赖本机 Keil STM32H7xx 设备包和 ARMCC V5。可执行 .\build_firmware.ps1 重编译。
+
+V1.7 Full 用于配套 10/100/1k/10k/100k 五档、KCAL、两路 ADC 调理和 AD9833 的 V1.7 洞洞板。
+默认 AD9833 由 PA8 送 8 MHz 时钟。成品模块用自带振荡器时断开 PA8，
+修改 System/BSP_PinMap.h 的 RLC_AD9833_USE_MCO 与 RLC_AD9833_MCLK_HZ 并重编。
+
+PB10/J3-12 用常开按键对地，或用 J3-25↔J3-12 取板载 K2（PC5 空闲）。
+上电先核对 JP1：正式四线选 4W（JP1 插 2–3）。短按切换、长按确认。
+下一页选择 BASIC（100 Hz/1 kHz/10 kHz）或 EXT（含 100 kHz）。
+待机短按测量；长按到菜单，短按轮换，长按确认。选 OPEN SHORT CAL，
+保持夹具原样、拿掉 DUT，短按采开路。随后换短路片，短按采短路。
+返回测量后移开短路片。切换 JP1 后同步切换按键菜单里的接法。
+OLED 的 CAL 标记表示本次用了匹配的开短记录。继电器 CAL/NORMAL 是内部动作，
+待机、试测、短校时限流，测量后回到失电限流态。
+
+标定前，Zf 使用包含常驻 R/C 的名义模型。实板标定见图纸目录「11_上板验收」。
+Flash 格式 V1.7，校准槽 0x08180000 / 0x081A0000，存有两种接法各自的数据。
+CRC 与双槽恢复沿用原结构。全片擦除会清空记录。
+串口 PA9/J2-19（3.3 V TTL，115200 8N1）供采集频率、档位、I/Q、用时与状态。

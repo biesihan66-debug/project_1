@@ -1,0 +1,56 @@
+V1.7 孔位与端点表
+前面孔号 1→27，焊接面 27→1，均 A 行向上。
+原 V1.5 B01–B21、T01/T02 保留。下面有路径拐点；跳线只剥端头。
+
+四线新增器件（元件面）
+R7  10k 0.1%  N20 → N23
+R8  10k 0.1%  D17 → D20
+R9  10k 0.1%  K19 → K22
+R10  10k 0.1%  D23 → D26
+C5  100nF  F12 → I15
+C6  100nF  F21 → I24
+U2 缺口向左  1=I12(BUF_P), 2=I13(BUF_P), 3=I14(S+), 4=I15(GND), 5=F15(S-), 6=F14(BUF_N), 7=F13(BUF_N), 8=F12(3V3)
+U3 缺口向左  1=I21(VDIFF), 2=I22(DIFF_N), 3=I23(DIFF_P), 4=I24(GND), 5=F24(VREF), 6=F23(VBUF), 7=F22(VBUF), 8=F21(3V3)
+
+原板四线新增走线
+B22  3V3      A12 → F12
+B23  3V3      A21 → F21
+B24  GND      I15 → J15 → J16 → K16
+B25  GND      I24 → I25 → V25
+B26  VREF     T27 → G27 → G24 → F24
+B27  BUF_N    F13 → F14
+B28  BUF_N    F14 → D14 → D17
+B29  BUF_P    I12 → I13
+B30  S+       I14 → J14
+B31  S-       F15 → E15
+B32  VBUF     F22 → F23
+B33  VBUF     F23 → D23
+B34  DIFF_N   I22 → K22
+B35  DIFF_P   I23 → N23
+B36  VDIFF    I21 → I19 → U19
+T03  VREF     T10 → T27
+T04  BUF_P    I12 → N12 → N20
+T05  DIFF_N   D20 → J20 → J22 → I22
+T06  DIFF_P   D26 → J26 → J23 → I23
+T07  VDIFF    U19 → U10
+
+继电器接点逐孔（图 07）
+K0 · TP2 | A3—E5 | COM
+RF0 · 10 Ω | E4—G18 | K0 NC；最低档
+K0 · BUS | E6—G19 | NO
+高档 COM | E10、E15、J10、J15 → G19 | BUS
+RF1 · 100 Ω | E11—G18 | K1 NO
+RF2 · 1 kΩ ∥ 22 pF | E16—G18 | K2 NO；并联两端相同
+RF3 · 10 kΩ | J11—G18 | K3 NO
+RF4 · 100 kΩ | J16—G18 | K4 NO
+KCAL-A | J5—L3；J6—L7 | COM=PA_OUT；NO=TP1；J4 留空
+KCAL-B | H4—L3；H6—L7 | NC=PA_OUT；NO=TP1
+RSC · 100 Ω ≥ ¼ W | L3—L7 | KCAL-A 吸合跨过它
+R5 · 10 kΩ + 20 kΩ 微调 | H5—L11 | KCAL-B COM 经 R5 到 J7
+RHOLD · 1 MΩ | L3—L11 | U1A 反馈常接
+
+原板到新增子板
+D8—A3(TP2)；D11—G18(TIA_N)；I7/I4/J4 中选近点—L7(TP1)；J7—L11(DRV_N)。
+U1顶脚1—UA.3；UA.6—L3(PA_OUT)；U1顶脚7—UB.3；UB.6—原座 F8。
+U9—调理 V.IN—V.OUT—PA6/J3-28；C8—调理 I.IN—I.OUT—PC4/J3-26。
+所有地单点汇合；负轨标 −5 V，VREF 保持原 1.65 V 偏置。详见图 08/09。

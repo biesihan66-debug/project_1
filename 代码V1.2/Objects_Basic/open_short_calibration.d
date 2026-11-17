@@ -1,9 +1,0 @@
-.\objects_basic\open_short_calibration.o: System\open_short_calibration.c
-.\objects_basic\open_short_calibration.o: System\open_short_calibration.h
-.\objects_basic\open_short_calibration.o: System\rlc_measurement_types.h
-.\objects_basic\open_short_calibration.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdbool.h
-.\objects_basic\open_short_calibration.o: D:\keli5\ARM\ARMCC\Bin\..\include\stddef.h
-.\objects_basic\open_short_calibration.o: D:\keli5\ARM\ARMCC\Bin\..\include\stdint.h
-.\objects_basic\open_short_calibration.o: System\rlc_impedance_calculation.h
-.\objects_basic\open_short_calibration.o: D:\keli5\ARM\ARMCC\Bin\..\include\float.h
-.\objects_basic\open_short_calibration.o: D:\keli5\ARM\ARMCC\Bin\..\include\math.h
