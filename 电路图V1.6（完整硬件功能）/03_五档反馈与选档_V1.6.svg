@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1255" viewBox="0 0 1600 1255">
+<rect width="100%" height="100%" fill="#eff4f3"/>
+<g font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+<text x="56" y="63" font-size="26" fill="#176c91" font-weight="700">RLC 电桥 / 洞洞板 V1.6 / 03</text>
+<text x="56" y="120" font-size="40" fill="#183244" font-weight="700">五档反馈板与译码</text>
+<text x="56" y="163" font-size="22" fill="#486475" font-weight="400">D8 到 D11 的线尽量短。所有触点在静音状态下切换，持续跨接保底反馈。</text>
+<rect x="56" y="248" width="204" height="78" rx="12" fill="#ffffff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="69" y="278" font-size="21" fill="#183244" font-weight="700">D8 / TP2</text>
+<text x="69" y="307" font-size="17" fill="#486475" font-weight="400">反馈板输入</text>
+<rect x="315" y="248" width="260" height="78" rx="12" fill="#ffffff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="328" y="278" font-size="21" fill="#183244" font-weight="700">K0-A 总选择</text>
+<text x="328" y="307" font-size="17" fill="#486475" font-weight="400">COM ← D8</text>
+<polyline points="260,287 315,287" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="656" y="209" width="192" height="78" rx="12" fill="#ffffff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="669" y="239" font-size="21" fill="#183244" font-weight="700">NC → RF0</text>
+<text x="669" y="268" font-size="17" fill="#486475" font-weight="400">4.99 Ω</text>
+<polyline points="575,266 610,266 610,248 656,248" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="848,248 1242,248" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="656" y="316" width="192" height="78" rx="12" fill="#ffffff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="669" y="346" font-size="21" fill="#183244" font-weight="700">NO → BUS</text>
+<text x="669" y="375" font-size="17" fill="#486475" font-weight="400">高档共用端</text>
+<polyline points="575,305 610,305 610,355 656,355" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="848,355 876,355 876,613" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="876,367 900,367" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="900" y="349" width="165" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="912" y="374" font-size="16" fill="#183244" font-weight="400">K1.COM → NO</text>
+<polyline points="1065,367 1090,367" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1090" y="349" width="130" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="1100" y="374" font-size="16" fill="#183244" font-weight="400">100 Ω</text>
+<polyline points="1220,367 1242,367" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="876" cy="367" r="5" fill="#176c91"/>
+<circle cx="1242" cy="367" r="5" fill="#176c91"/>
+<polyline points="876,449 900,449" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="900" y="431" width="165" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="912" y="456" font-size="16" fill="#183244" font-weight="400">K2.COM → NO</text>
+<polyline points="1065,449 1090,449" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1090" y="431" width="130" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="1100" y="456" font-size="16" fill="#183244" font-weight="400">1 kΩ ∥ 22 pF</text>
+<polyline points="1220,449 1242,449" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="876" cy="449" r="5" fill="#176c91"/>
+<circle cx="1242" cy="449" r="5" fill="#176c91"/>
+<polyline points="876,531 900,531" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="900" y="513" width="165" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="912" y="538" font-size="16" fill="#183244" font-weight="400">K3.COM → NO</text>
+<polyline points="1065,531 1090,531" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1090" y="513" width="130" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="1100" y="538" font-size="16" fill="#183244" font-weight="400">10 kΩ</text>
+<polyline points="1220,531 1242,531" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="876" cy="531" r="5" fill="#176c91"/>
+<circle cx="1242" cy="531" r="5" fill="#176c91"/>
+<polyline points="876,613 900,613" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="900" y="595" width="165" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="912" y="620" font-size="16" fill="#183244" font-weight="400">K4.COM → NO</text>
+<polyline points="1065,613 1090,613" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1090" y="595" width="130" height="38" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="1100" y="620" font-size="16" fill="#183244" font-weight="400">100 kΩ</text>
+<polyline points="1220,613 1242,613" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="876" cy="613" r="5" fill="#176c91"/>
+<circle cx="1242" cy="613" r="5" fill="#176c91"/>
+<polyline points="1242,248 1242,708" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1280" y="332" width="250" height="78" rx="12" fill="#ffffff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="1293" y="362" font-size="21" fill="#183244" font-weight="700">D11 / TIA_N</text>
+<text x="1293" y="391" font-size="17" fill="#486475" font-weight="400">返回 U1 第 6 脚</text>
+<polyline points="1242,371 1280,371" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="1242" cy="371" r="5" fill="#176c91"/>
+<polyline points="285,287 285,708 555,708" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="285" cy="287" r="5" fill="#176c91"/>
+<rect x="555" y="688" width="310" height="40" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="572" y="715" font-size="20" fill="#183244" font-weight="400">RB 10 MΩ ∥ CB 2.2 pF</text>
+<polyline points="865,708 1242,708" fill="none" stroke="#176c91" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="56" y="772" width="721" height="267" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="78" y="811" font-size="26" fill="#176c91" font-weight="700">译码与继电器</text>
+<text x="78" y="851" font-size="21" fill="#183244" font-weight="400">CD74HC238 @3.3 V：A0=PB0、A1=PB1、A2=PB11。</text>
+<text x="78" y="884" font-size="21" fill="#183244" font-weight="400">高有效使能接 3.3 V，两低有效使能接地。</text>
+<text x="78" y="917" font-size="21" fill="#183244" font-weight="400">Y1～Y4 → ULN2003LV IN2～5 → K1～K4。</text>
+<text x="78" y="950" font-size="21" fill="#183244" font-weight="400">Y1～Y4 经 3 个 OR 门 → IN1 → K0。</text>
+<text x="78" y="983" font-size="21" fill="#183244" font-weight="400">PB15 → IN6 → KCAL。COM 接 +5 V，IN7 接地。</text>
+<text x="78" y="1016" font-size="21" fill="#183244" font-weight="400">全部线圈一端 +5 V，另一端接各自 OUT。</text>
+<rect x="804" y="772" width="740" height="267" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
+<text x="826" y="811" font-size="26" fill="#176c91" font-weight="700">默认态与每档对应</text>
+<text x="826" y="851" font-size="21" fill="#183244" font-weight="400">000 / 101 / 110 / 111：K0 释放 → 4.99 Ω。</text>
+<text x="826" y="884" font-size="21" fill="#183244" font-weight="400">001：K0 + K1 → 100 Ω；010：K0 + K2 → 1 kΩ。</text>
+<text x="826" y="917" font-size="21" fill="#183244" font-weight="400">011：K0 + K3 → 10 kΩ；100：K0 + K4 → 100 kΩ。</text>
+<text x="826" y="950" font-size="21" fill="#183244" font-weight="400">三个控制输入各加 47 kΩ 下拉。线圈回流走电源侧。</text>
+<text x="826" y="983" font-size="21" fill="#183244" font-weight="400">10 MΩ∥2.2 pF 始终接入。各档有效值含它和触点。</text>
+<text x="826" y="1016" font-size="21" fill="#183244" font-weight="400">10 kΩ/100 kΩ 预留 C0G 位，样机按振铃实测定值。</text>
+</g></svg>
