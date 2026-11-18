@@ -18,6 +18,7 @@ typedef enum
 } KeyEvent;
 
 void Key_Init(void);
+uint32_t Key_PressedAt(void);
 KeyEvent Key_GetEvent(uint32_t now_ms);
 
 #endif

@@ -6,9 +6,9 @@
  * 应用状态与位置：
  * button 的按键状态已封装在 Key.c，应用只读取 KeyEvent。
  * app_page 记录测量/开路校准/短路校准页面；display_ready 记录 OLED 是否可用。
- * active_calibration 供测量读，pending_calibration 由开短路流程写，
- * 两者是本文件的静态变量。校准数组下标见 RLC_Calibration.h，
- * 配对成功并写入板级 Flash 后才更新 active_calibration。
+ * stored_calibration[0/1] 分别存两线和四线的已保存记录，供测量读取。
+ * pending_calibration 存本轮开短校准，保存失败或取消时继续使用原记录。
+ * 两者是本文件的静态变量。频率、量程下标见 RLC_Calibration.h。
  * RunMeasurement() 的 result 在本次调用栈上，类型/数值/频率/量程分别
  * 送到 OLED 第 1/2/3/4 行，I/Q、复阻抗和用时经 USART 输出。
  * RLC_APP_FIXED_1KHZ 用于 1 kHz / 1 kΩ 固定台架；Full 使用含 100 kHz 的自动测量。
@@ -20,6 +20,7 @@
 #include "OLED_Display.h"
 #include "BSP_Board.h"
 #include "Flash_Calibration.h"
+#include <string.h>
 
 #ifndef RLC_APP_FIXED_1KHZ
 #define RLC_APP_FIXED_1KHZ 0
@@ -31,6 +32,7 @@ typedef enum
     APP_SELECT_BAND,
     APP_MEASURE,
     APP_MENU,
+    APP_LIMITED_TEST,
     APP_CALIBRATE_OPEN,
     APP_CALIBRATE_SHORT
 } AppPage;
@@ -88,7 +90,7 @@ static void ShowSetup(void)
     }
     else
     {
-        const char *const entries[] = {"OPEN SHORT CAL", "CHANGE 2W / 4W", "CHANGE BAND"};
+        const char *const entries[] = {"OPEN SHORT CAL", "CHANGE 2W / 4W", "CHANGE BAND", "1K LIMITED TEST"};
         ShowPage("SETTINGS", entries[menu_index], "PRESS NEXT", "HOLD TO OPEN");
     }
 }
@@ -97,7 +99,8 @@ static void ShowCalibrationPrompt(const char *hint)
 {
     if (app_page == APP_CALIBRATE_OPEN)
     {
-        ShowPage("CAL OPEN", "REMOVE COMPONENT", "PRESS WHEN READY", hint);
+        ShowPage("CAL OPEN", selected_four_wire ? "OPEN STANDARD" : "REMOVE COMPONENT",
+                 "PRESS WHEN READY", hint);
     }
     else
     {
@@ -105,7 +108,7 @@ static void ShowCalibrationPrompt(const char *hint)
     }
 }
 
-static void RunMeasurement(uint32_t command_ms)
+static void RunMeasurement(uint32_t command_ms, bool limited)
 {
     RLC_Result result;
     float feedback_ohm = 0.0f;
@@ -114,11 +117,15 @@ static void RunMeasurement(uint32_t command_ms)
     {
         display_ready = OLED_ShowActivity("MEASURING");
     }
-#if RLC_APP_FIXED_1KHZ
-    result = RLC_MeasureFixed(&stored_calibration[selected_four_wire ? 1u : 0u], RLC_FREQUENCY_1_KHZ, RLC_RANGE_1_KOHM);
-#else
-    result = RLC_MeasureAuto(&stored_calibration[selected_four_wire ? 1u : 0u], selected_band);
-#endif
+    const RLC_Calibration *cal = &stored_calibration[selected_four_wire ? 1u : 0u];
+    if (limited || RLC_APP_FIXED_1KHZ)
+    {
+        result = RLC_MeasureFixed(limited ? NULL : cal, RLC_FREQUENCY_1_KHZ, RLC_RANGE_1_KOHM);
+    }
+    else
+    {
+        result = RLC_MeasureAuto(cal, selected_band);
+    }
     if (result.range_index < RLC_RANGE_COUNT)
     {
         feedback_ohm = bsp_feedback_ohm[result.range_index];
@@ -127,7 +134,9 @@ static void RunMeasurement(uint32_t command_ms)
     {
         display_ready = OLED_ShowResult(&result, feedback_ohm);
     }
-    Serial_PrintResult(&result, BSP_GetMillis() - command_ms, display_ready);
+    const uint32_t finished = BSP_GetMillis();
+    BSP_DebugWrite(limited || RLC_APP_FIXED_1KHZ ? "RUN LIMITED 1K\r\n" : "RUN AUTO\r\n");
+    Serial_PrintResult(&result, finished - command_ms, finished - Key_PressedAt(), display_ready);
 }
 
 /* 开路与短路两步都成功才写入 Flash。失败时留在当前步骤，短按可重试。 */
@@ -179,6 +188,7 @@ static void HandleButtonEvent(KeyEvent event, uint32_t command_ms)
         else
         {
             RLC_SelectSenseProfile(selected_four_wire);
+            BSP_DebugWrite(selected_four_wire ? "WIRING 4W\r\n" : "WIRING 2W\r\n");
             app_page = APP_SELECT_BAND;
         }
         ShowSetup();
@@ -193,6 +203,7 @@ static void HandleButtonEvent(KeyEvent event, uint32_t command_ms)
         else
         {
             app_page = APP_MEASURE;
+            BSP_DebugWrite(selected_band == RLC_MODE_BASIC ? "BAND BASIC\r\n" : "BAND EXT\r\n");
             ShowReady("PRESS TO MEASURE");
         }
     }
@@ -200,14 +211,20 @@ static void HandleButtonEvent(KeyEvent event, uint32_t command_ms)
     {
         if (event == KEY_SHORT_PRESS)
         {
-            menu_index = (uint8_t)((menu_index + 1u) % 3u);
+            menu_index = (uint8_t)((menu_index + 1u) % 4u);
             ShowSetup();
         }
         else if (menu_index == 0u)
         {
-            pending_calibration = stored_calibration[selected_four_wire ? 1u : 0u];
+            /* 本轮只登记实际校过的频点，避免 BASIC 保存后混入旧夹具的 100 kHz 校准。 */
+            memset(&pending_calibration, 0, sizeof pending_calibration);
             app_page = APP_CALIBRATE_OPEN;
             ShowCalibrationPrompt("HOLD TO CANCEL");
+        }
+        else if (menu_index == 3u)
+        {
+            app_page = APP_LIMITED_TEST;
+            ShowPage("1K LIMITED TEST", WiringLabel(), "PRESS RUN 1K", "HOLD TO EXIT");
         }
         else
         {
@@ -215,11 +232,23 @@ static void HandleButtonEvent(KeyEvent event, uint32_t command_ms)
             ShowSetup();
         }
     }
+    else if (app_page == APP_LIMITED_TEST)
+    {
+        if (event == KEY_SHORT_PRESS)
+        {
+            RunMeasurement(command_ms, true);
+        }
+        else
+        {
+            app_page = APP_MEASURE;
+            ShowReady("PRESS TO MEASURE");
+        }
+    }
     else if (app_page == APP_MEASURE)
     {
         if (event == KEY_SHORT_PRESS)
         {
-            RunMeasurement(command_ms);
+            RunMeasurement(command_ms, false);
         }
         else
         {
@@ -251,13 +280,15 @@ bool App_Init(void)
     (void)Flash_LoadCalibration(stored_calibration, sizeof stored_calibration);
     EnsureDisplay();
     ShowSetup();
-    BSP_DebugWrite("RLC READY\r\n");
+    BSP_DebugWrite(RLC_APP_FIXED_1KHZ ? "RLC READY V1.7 FIXED AUDIT2\r\n" :
+                                      "RLC READY V1.7 FULL AUDIT2\r\n");
     return true;
 }
 
-/* 每轮调用一次；无按键事件时立即返回，测量时由各模块管理超时。 */
+/* 每轮先处理待重试的停波，再读取按键。测量和校准各自管理截止时刻。 */
 void App_Run(void)
 {
+    BSP_RetryPendingStop();
     const uint32_t now_ms = BSP_GetMillis();
     const KeyEvent event = Key_GetEvent(now_ms);
     if (event != KEY_NONE)

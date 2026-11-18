@@ -3,6 +3,7 @@
  * BSP_GetMillis() 读取 delay.c 的 GetTick()，单位 ms，供主循环和采样判断超时。
  * bsp_feedback_ohm / bsp_feedback_capacitance_f 反馈阻容表按档位索引，单位为 Ω 和 F，须按实物更新。
  * active_frequency_index、active_range_index 由换档函数更新，供采集使用。
+ * stop_pending 标记 DDS 停波指令尚未送达，stop_retry_ms 为下次重试的毫秒时刻。
  * 频率进入 OLED 第 3 行，量程或故障进入第 4 行。UART 数据不直接进入 OLED。
  */
 #include "BSP_PinMap.h"
@@ -20,6 +21,9 @@
 static uint8_t active_frequency_index;
 static uint8_t active_range_index = RLC_RANGE_SAFE_INDEX;
 static bool active_setting;
+static bool stop_pending;
+static uint32_t stop_retry_ms;
+enum { DDS_STOP_RETRY_MS = 100u };
 static bool active_normal;
 static bool relays_moving;
 
@@ -45,18 +49,33 @@ bool BSP_Init(void)
     BSP_GPIO_Init();
     BSP_USART_Init();
     OLED_I2C_Init();
-    return DDS_Init() && BSP_ADC_Init();
+    if (!DDS_Init())
+    {
+        /* DDS_Init 的最后一步是停波。即使启动未完成，也要继续尝试关激励。 */
+        stop_pending = true;
+        (void)BSP_StopMeasurement();
+        BSP_DebugWrite("INIT fault=dds\r\n");
+        return false;
+    }
+    if (!BSP_ADC_Init())
+    {
+        BSP_DebugWrite("INIT fault=adc\r\n");
+        return false;
+    }
+    return true;
 }
 
-void BSP_StopMeasurement(void)
+bool BSP_StopMeasurement(void)
 {
-    const bool stopped = !active_setting || DDS_Stop(BSP_GetMillis() + 3u);
-    if (active_setting && stopped)
+    const bool must_stop = active_setting || stop_pending;
+    const bool stopped = !must_stop || DDS_Stop(BSP_GetMillis() + 3u);
+    stop_pending = !stopped;
+    if (must_stop && stopped)
     {
         Delay(RLC_DDS_OFF_SETTLE_MS);
     }
     active_setting = false;
-    /* Restore passive series limiting even when STOP has failed. */
+    /* 即使 DDS 暂未收到停波命令，也先释放 KCAL，让 100 Ω 限流电阻接回。 */
     Range_SetNormal(false);
     if (active_normal || !stopped || relays_moving)
     {
@@ -75,6 +94,19 @@ void BSP_StopMeasurement(void)
     }
     active_range_index = RLC_RANGE_SAFE_INDEX;
     relays_moving = false;
+    if (stop_pending)
+    {
+        stop_retry_ms = BSP_GetMillis() + DDS_STOP_RETRY_MS;
+    }
+    return stopped;
+}
+
+void BSP_RetryPendingStop(void)
+{
+    if (stop_pending && !BSP_BeforeDeadline(stop_retry_ms))
+    {
+        (void)BSP_StopMeasurement();
+    }
 }
 
 static bool WaitForSettling(uint32_t duration_ms, uint32_t deadline_ms)
@@ -155,6 +187,10 @@ RLC_Status BSP_SelectMeasurement(uint8_t frequency_index, uint8_t range_index,
     {
         return RLC_STATUS_TIMEOUT;
     }
+    if (stop_pending && !BSP_StopMeasurement())
+    {
+        return RLC_STATUS_HARDWARE_ERROR;
+    }
     if (active_setting && active_frequency_index == frequency_index &&
         active_range_index == range_index && active_normal == normal)
     {
@@ -163,7 +199,13 @@ RLC_Status BSP_SelectMeasurement(uint8_t frequency_index, uint8_t range_index,
 
     const uint32_t frequency = rlc_frequency_hz[frequency_index];
     const uint32_t signal_settle_ms = (1000u + frequency - 1u) / frequency + 2u;
-    if (!DDS_Stop(deadline_ms) || !WaitForSettling(RLC_DDS_OFF_SETTLE_MS, deadline_ms))
+    if (!DDS_Stop(deadline_ms))
+    {
+        /* 即便软件记录的是空闲，也必须确认一次停波，否则主循环继续重试。 */
+        stop_pending = true;
+        return BSP_StopMeasurement() ? RLC_STATUS_TIMEOUT : RLC_STATUS_HARDWARE_ERROR;
+    }
+    if (!WaitForSettling(RLC_DDS_OFF_SETTLE_MS, deadline_ms))
     {
         BSP_StopMeasurement();
         return RLC_STATUS_TIMEOUT;
@@ -193,6 +235,10 @@ RLC_Status BSP_CaptureFrame(uint8_t cycles, uint32_t deadline_ms, RLC_Frame *fra
 {
     if (!active_setting || relays_moving)
     {
+        if (frame != NULL)
+        {
+            frame->fault = "board_state";
+        }
         return RLC_STATUS_HARDWARE_ERROR;
     }
     return ADC_Capture(rlc_frequency_hz[active_frequency_index], DDS_GetActualFrequencyHz(), cycles,

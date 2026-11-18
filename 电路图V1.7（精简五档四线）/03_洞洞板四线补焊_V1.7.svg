@@ -945,9 +945,12 @@
 <text x="66" y="1236" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >断电后装 U2/U3、R7～R10 和 C5/C6；四个 10 kΩ 电阻使用 0.1% 配对件。</text>
 <text x="66" y="1270" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >补焊本图彩线，再按第 04 张补 T03～T07。C5 背焊 F12/I15；C6 背焊 F21/I24，接法与 C2 一样。</text>
 <text x="66" y="1304" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >保留 Force 两根线：F+=I4，F−=C9；新增独立 Sense：S+=J14，S−=E15。</text>
-<text x="66" y="1338" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >仅将 JP1 跳帽从 U8–U9（1–2）移到 U9–U10（2–3）；PA6 的线始终在 U9，PC4 始终在 C8。</text>
+<text x="66" y="1338" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >JP1 从 U8–U9（两线）移到 U9–U10（四线）；U9、C8 均经图 08 调理后接 ADC。</text>
 <text x="66" y="1372" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >本图已按全部八脚功能核对连通性。实际焊点、差分增益/相位、开短路校准与测量精度仍需实物验证。</text>
 
+<circle cx="685" cy="630" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+<circle cx="685" cy="630" r="9" fill="none" stroke="#a54e13" stroke-width="3"/>
+<circle cx="685" cy="630" r="4" fill="#a54e13"><title>K19 · B36 焊 R9</title></circle>
 </g></g>
 <rect x="1028" y="211" width="516" height="201" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
 <text x="1050" y="250" font-size="26" fill="#176c91" font-weight="700">先焊器件，再接 B22–B36</text>
@@ -957,10 +960,10 @@
 <text x="1050" y="389" font-size="21" fill="#183244" font-weight="400">先跨色找孔，再跟 10_逐孔表核对。</text>
 <rect x="1028" y="445" width="516" height="234" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
 <text x="1050" y="484" font-size="26" fill="#176c91" font-weight="700">焊完先测通断</text>
-<text x="1050" y="524" font-size="21" fill="#183244" font-weight="400">只焊图上端点，交叉处保留绝缘。</text>
+<text x="1050" y="524" font-size="21" fill="#183244" font-weight="400">B36 在 K19 焊 R9；异网交叉绝缘。</text>
 <text x="1050" y="557" font-size="21" fill="#183244" font-weight="400">J14 通 U2.3，E15 通 U2.5。</text>
 <text x="1050" y="590" font-size="21" fill="#183244" font-weight="400">GND 与 3.3 V 无短接。</text>
-<text x="1050" y="623" font-size="21" fill="#183244" font-weight="400">U10 经 T07 才与差分输出连通。</text>
+<text x="1050" y="623" font-size="21" fill="#183244" font-weight="400">量通 I21、K19、U19、U10。</text>
 <text x="1050" y="656" font-size="21" fill="#183244" font-weight="400">接好电源先量 VDIFF 的直流约 1.65 V。</text>
 <rect x="1028" y="727" width="516" height="168" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
 <text x="1050" y="766" font-size="26" fill="#176c91" font-weight="700">这是补装图</text>

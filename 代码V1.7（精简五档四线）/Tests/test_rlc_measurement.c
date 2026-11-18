@@ -8,6 +8,7 @@
 #include "RLC_Measure.h"
 #include "RLC_Calculate.h"
 #include "BSP_Board.h"
+#include "BSP_PinMap.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -42,7 +43,11 @@ typedef struct
     float fixture_c_f;
     TestFixture fixture;
     unsigned selections_until_timeout;
+    uint32_t timeout_hz;
     bool fail_capture;
+    bool fail_stop;
+    bool clip_analog;
+    float dut_offset_codes;
     bool normal;
     bool normal_used;
     bool limited_seen;
@@ -105,12 +110,10 @@ static RLC_Complex fixture_impedance(const TestBoard *board, float omega)
 static uint16_t adc_code(float ac, float offset, bool *clipped)
 {
     float code = ac / TEST_CODE_SCALE + offset;
-    if (code < 32.0f || code > 65503.0f)
-    {
-        *clipped = true;
-        code = fminf(65535.0f, fmaxf(0.0f, code));
-    }
-    return (uint16_t)(code + 0.5f);
+    code = fminf(65535.0f, fmaxf(0.0f, code));
+    const uint16_t sample = (uint16_t)(code + 0.5f);
+    *clipped |= sample <= RLC_ADC_LOW_RAIL_CODE || sample >= RLC_ADC_HIGH_RAIL_CODE;
+    return sample;
 }
 
 uint32_t BSP_GetMillis(void)
@@ -132,7 +135,8 @@ RLC_Status BSP_SelectMeasurement(uint8_t frequency, uint8_t range, bool normal, 
     board->frequency_mask |= UINT32_C(1) << frequency;
     board->range_mask |= UINT32_C(1) << range;
     board->now_ms += 1u;
-    if (board->selections_until_timeout != 0u && --board->selections_until_timeout == 0u)
+    if (rlc_frequency_hz[frequency] == board->timeout_hz ||
+        (board->selections_until_timeout != 0u && --board->selections_until_timeout == 0u))
     {
         board->now_ms = deadline;
         return RLC_STATUS_TIMEOUT;
@@ -158,6 +162,7 @@ RLC_Status BSP_CaptureFrame(uint8_t cycles, uint32_t deadline, RLC_Frame *frame)
     RLC_Complex tia;
     if (board->fail_capture)
     {
+        frame->fault = "adc_overrun";
         return RLC_STATUS_HARDWARE_ERROR;
     }
     board->now_ms += ((uint32_t)cycles * 1000u + frequency - 1u) / frequency;
@@ -189,17 +194,23 @@ RLC_Status BSP_CaptureFrame(uint8_t cycles, uint32_t deadline, RLC_Frame *frame)
         const uint32_t noise_word = (uint32_t)(i + 1u) * 1664525u + 1013904223u;
         const float dither = board->fixture == DUT_SHORT ?
             ((float)((noise_word >> 9) & 1023u) / 1024.0f - 0.5f) * TEST_CODE_SCALE : 0.0f;
-        const uint16_t dut = adc_code(drive.real * c - drive.imag * s + dither, 32080.0f, &frame->dut_clipped);
+        float dut_ac = drive.real * c - drive.imag * s + dither;
+        if (board->clip_analog)
+        {
+            dut_ac = fminf(0.35f, fmaxf(-0.35f, dut_ac));
+        }
+        const uint16_t dut = adc_code(dut_ac, 42923.0f + board->dut_offset_codes, &frame->dut_clipped);
         const uint16_t tia_adc =
-            adc_code(tia.real * c - tia.imag * s, 33280.0f, &frame->tia_clipped);
+            adc_code(tia.real * c - tia.imag * s, 42930.0f, &frame->tia_clipped);
         board->samples[i] = ((uint32_t)tia_adc << 16) | dut;
     }
     return RLC_STATUS_OK;
 }
 
-void BSP_StopMeasurement(void)
+bool BSP_StopMeasurement(void)
 {
     ++active_board->stop_count;
+    return !active_board->fail_stop;
 }
 
 const float bsp_feedback_capacitance_f[RLC_RANGE_COUNT] = {
@@ -407,9 +418,9 @@ static void test_fractional_cycle_demodulation(void)
         {
             const double phase = two_pi * frame.cycles_per_sample * (double)sample_index;
             const uint16_t dut = adc_code((float)(dut_amplitude_v * cos(phase + dut_phase)),
-                                          28000.0f, &frame.dut_clipped);
+                                          42100.0f, &frame.dut_clipped);
             const uint16_t tia = adc_code((float)(tia_amplitude_v * cos(phase + tia_phase)),
-                                          36800.0f, &frame.tia_clipped);
+                                          43400.0f, &frame.tia_clipped);
             samples[sample_index] = ((uint32_t)tia << 16) | dut;
         }
         RLC_Phasors measured;
@@ -439,14 +450,40 @@ static void test_fixed_and_faults(void)
     require(RLC_MeasureAuto(NULL, RLC_MODE_BASIC).status == RLC_STATUS_TIMEOUT,
             "timed out acquisition propagates");
     board.fail_capture = true;
-    require(RLC_MeasureAuto(NULL, RLC_MODE_EXTENDED).status == RLC_STATUS_HARDWARE_ERROR,
-            "capture hardware fault propagates");
+    const RLC_Result failed = RLC_MeasureAuto(NULL, RLC_MODE_EXTENDED);
+    require(failed.status == RLC_STATUS_HARDWARE_ERROR && strcmp(failed.fault, "adc_overrun") == 0,
+            "capture fault and specific stage reach the result");
     require(board.stop_count == 4u, "normal and failed measurements leave the source stopped");
     board.fail_capture = false;
     board.fixture = DUT_COMPONENT;
+    board.fail_stop = true;
+    RLC_Result stopped = RLC_MeasureFixed(NULL, 1u, 2u);
+    require(stopped.status == RLC_STATUS_HARDWARE_ERROR && strcmp(stopped.fault, "dds_stop") == 0,
+            "stop failure invalidates an otherwise valid reading");
+    board.fail_stop = false;
     board.component_value = 2.0f;
     require(RLC_MeasureAuto(NULL, RLC_MODE_EXTENDED).status != RLC_STATUS_OK && !board.normal_used,
             "low resistance never bypasses the current-limiting resistor");
+}
+
+/* 6 Ω 原始负载越过旁路电流上限。人为施加小偏差，让校准后阻值落入可旁路区。 */
+static void test_bypass_uses_raw_impedance(void)
+{
+    TestBoard board = {.component = RLC_COMPONENT_R, .component_value = 6.0f};
+    RLC_Calibration cal = {0};
+    active_board = &board;
+    for (uint8_t f = 0u; f < RLC_FREQUENCY_COUNT; ++f)
+    {
+        for (uint8_t r = 0u; r < RLC_RANGE_COUNT; ++r)
+        {
+            require(Calibration_SetIdealOpen(&cal, f, r) &&
+                    Calibration_Set(&cal, f, r, false, (RLC_Complex){-0.5f, 0.0f}),
+                    "prepare a 0.5 ohm correction");
+        }
+    }
+    const RLC_Result result = RLC_MeasureAuto(&cal, RLC_MODE_EXTENDED);
+    require(result.status == RLC_STATUS_OVERLOAD && !board.normal_used && board.stop_count == 1u,
+            "fixture correction must not allow bypass on a 6 ohm load");
 }
 
 static void test_feedback_capacitance(void)
@@ -459,8 +496,54 @@ static void test_feedback_capacitance(void)
     require(fabsf(result.impedance_ohm.imag) < 1.5f, "feedback capacitance phase compensation");
 }
 
+/* 10 kHz 是 1 kHz 之后的备选点。分别覆盖已有读数和仍无读数的情况。 */
+static void test_alternate_frequency_timeout(void)
+{
+    TestBoard board = {.fixture = DUT_OPEN, .timeout_hz = 10000u};
+    active_board = &board;
+    RLC_Result result = RLC_MeasureAuto(NULL, RLC_MODE_BASIC);
+    require(result.status == RLC_STATUS_TIMEOUT && result.frequency_hz == 10000u &&
+            !board.normal_used && board.stop_count == 1u,
+            "alternate timeout without a usable scout must reach the display");
+
+    TestBoard resistor = {.component = RLC_COMPONENT_R, .component_value = 1000.0f,
+                          .timeout_hz = 10000u};
+    active_board = &resistor;
+    result = RLC_MeasureAuto(NULL, RLC_MODE_BASIC);
+    check_reading(result, RLC_COMPONENT_R, 1000.0f, 0.01f, 1000u,
+                  "a valid scout can still be confirmed after the optional recheck times out");
+    require(resistor.normal_used && resistor.stop_count == 1u,
+            "fallback still requires a final measurement and shutdown");
+}
+
+static void test_analog_window(void)
+{
+    TestBoard board = {.component = RLC_COMPONENT_R, .component_value = 1000.0f};
+    active_board = &board;
+    bool clipped = false;
+    uint16_t trough = adc_code(-0.7071f, 42923.0f, &clipped);
+    require(!clipped && trough > 38900u && trough < 39100u, "nominal 0.5 Vrms trough");
+    board.clip_analog = true;
+    require(RLC_MeasureFixed(NULL, 1u, 2u).status == RLC_STATUS_OVERLOAD,
+            "limited 1k rejects analog flat tops inside the ADC window");
+    require(RLC_MeasureAuto(NULL, RLC_MODE_BASIC).status != RLC_STATUS_OK && !board.normal_used,
+            "distorted scouts cannot admit NORMAL");
+    RLC_Calibration cal = {0};
+    board.fixture = DUT_OPEN;
+    require(RLC_CaptureCalibration(&cal, true, RLC_MODE_BASIC) == RLC_STATUS_OVERLOAD &&
+            cal.open_mask == 0u, "clipped open cannot become an ideal-open record");
+    board.fixture = DUT_COMPONENT;
+    board.clip_analog = false;
+    board.dut_offset_codes = -9070.0f;
+    require(RLC_MeasureFixed(NULL, 1u, 2u).status == RLC_STATUS_OVERLOAD,
+            "bias shifted from 1.65 V to zero crosses the physical low threshold");
+}
+
 int main(void)
 {
+    test_alternate_frequency_timeout();
+    test_bypass_uses_raw_impedance();
+    test_analog_window();
     test_basic_and_extended();
     test_calibration();
     test_basic_calibration_frequency_limit();
@@ -469,6 +552,6 @@ int main(void)
     test_range_sweep();
     test_fractional_cycle_demodulation();
     puts("PASS: RLC limits, 3606 basic/extended sweep cases, fractional-cycle demodulation, "
-         "feedback capacitance, calibration, time wrap, and faults");
+         "feedback capacitance, calibration, raw bypass limits, alternate timeouts, clipping and acquisition faults");
     return EXIT_SUCCESS;
 }

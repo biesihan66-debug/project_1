@@ -874,7 +874,7 @@
 <text x="66" y="1634" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >① 补装绿色区域元件及 T03～T07。② F+/F− 保留，S+/S− 加到同一被测件两端的独立触点。</text>
 <text x="66" y="1668" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >③ JP1：U8—U9 → U9—U10。PA6 由 TP1 改采 VDIFF，PC4 仍采 TP2。</text>
 <text x="66" y="1702" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >Sense 触点靠元件本体，Force 触点靠外；板端不把 F 与 S 短接。两只双触点 Kelvin 夹合计四根线。</text>
-<text x="66" y="1736" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >先用 1 kHz、1 kΩ 反馈和 1 kΩ 标准电阻验收。V1.5 是尺寸适配，实测精度未验收。</text>
+<text x="66" y="1736" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >V1.7 首测选菜单 1K LIMITED TEST，夹 1 kΩ 标准电阻。实物精度待验收。</text>
 
 </g></g>
 <rect x="1028" y="211" width="516" height="267" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>

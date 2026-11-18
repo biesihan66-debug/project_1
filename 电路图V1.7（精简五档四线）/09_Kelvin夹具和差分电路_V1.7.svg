@@ -46,5 +46,5 @@
 <rect x="56" y="918" width="1488" height="135" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
 <text x="78" y="957" font-size="26" fill="#176c91" font-weight="700">JP1 和固件设置对齐</text>
 <text x="78" y="997" font-size="21" fill="#183244" font-weight="400">U8（1）=TP1、U9（2）=调理输入 V.IN、U10（3）=VDIFF。四线插 U9–U10，固件选 4W。</text>
-<text x="78" y="1030" font-size="21" fill="#183244" font-weight="400">如查原驱动，可临时用 U8–U9 且选 2W；每个接法单独存开短校。拆装夹具后重做对应校准。</text>
+<text x="78" y="1030" font-size="21" fill="#183244" font-weight="400">4W 开校用两个彼此绝缘的端片，每片接同侧 F、S；短校再将两端片短接。2W/4W 各存一份。</text>
 </g></svg>

@@ -27,6 +27,6 @@
 <rect x="56" y="755" width="1488" height="168" rx="12" fill="#fff" stroke="#b5cbd0" stroke-width="2"/>
 <text x="78" y="794" font-size="26" fill="#176c91" font-weight="700">焊接用的三个约定</text>
 <text x="78" y="834" font-size="21" fill="#183244" font-weight="400">原板元件面 A 行在上、列号 1→27；翻看焊接面仍让 A 在上，此时列号 27→1。子板同理。</text>
-<text x="78" y="867" font-size="21" fill="#183244" font-weight="400">图上直角线表示可走的路线，圆点才是端点。用短绝缘线焊两端，过中间孔不拉锡。</text>
+<text x="78" y="867" font-size="21" fill="#183244" font-weight="400">正面绝缘跳线只焊两端。底面铜线遇同网分支要焊牢，例如 B36 在 K19 接 R9。</text>
 <text x="78" y="900" font-size="21" fill="#183244" font-weight="400">U1 转接、子板及 ADC 端子请先贴标签。F− 是跨阻节点，接夹具；公共 GND 留给电源和信号回流。</text>
 </g></svg>

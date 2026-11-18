@@ -29,6 +29,11 @@ void Key_Init(void)
     button = (ButtonState){0};
 }
 
+uint32_t Key_PressedAt(void)
+{
+    return button.pressed_ms;
+}
+
 /* 短按在去抖后的释放时触发，长按达到阈值时触发且只报告一次。 */
 KeyEvent Key_GetEvent(uint32_t now_ms)
 {

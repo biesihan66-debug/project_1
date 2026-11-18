@@ -8,7 +8,7 @@
 
 #include "RLC_Types.h"
 
-void Serial_PrintResult(const RLC_Result *result, uint32_t display_elapsed_ms, bool display_ok);
+void Serial_PrintResult(const RLC_Result *result, uint32_t display_elapsed_ms, uint32_t press_elapsed_ms, bool display_ok);
 void Serial_PrintCalibration(bool open, RLC_Status status);
 
 #endif

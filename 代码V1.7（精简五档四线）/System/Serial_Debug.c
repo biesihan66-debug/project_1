@@ -12,7 +12,7 @@
 #include "Text_Format.h"
 #include "BSP_Board.h"
 
-static char text_buffer[384];
+static char text_buffer[448];
 
 static char ComponentCode(RLC_Component component)
 {
@@ -41,7 +41,7 @@ static void AppendFloatField(TextBuffer *text, const char *name, float value)
     Text_AddScientific(text, value);
 }
 
-void Serial_PrintResult(const RLC_Result *result, uint32_t display_elapsed_ms, bool display_ok)
+void Serial_PrintResult(const RLC_Result *result, uint32_t display_elapsed_ms, uint32_t press_elapsed_ms, bool display_ok)
 {
     TextBuffer text = Text_Begin(text_buffer, sizeof text_buffer);
 
@@ -54,6 +54,12 @@ void Serial_PrintResult(const RLC_Result *result, uint32_t display_elapsed_ms, b
     AppendUnsignedField(&text, " calibrated=", result->calibrated ? 1u : 0u);
     AppendUnsignedField(&text, " core_ms=", result->elapsed_ms);
     AppendUnsignedField(&text, " display_ms=", display_elapsed_ms);
+    AppendUnsignedField(&text, " press_to_oled_ms=", press_elapsed_ms);
+    if (result->fault != NULL)
+    {
+        Text_Append(&text, " fault=");
+        Text_Append(&text, result->fault);
+    }
     AppendUnsignedField(&text, " display_ok=", display_ok ? 1u : 0u);
     AppendFloatField(&text, " z_re_ohm=", result->impedance_ohm.real);
     AppendFloatField(&text, " z_im_ohm=", result->impedance_ohm.imag);

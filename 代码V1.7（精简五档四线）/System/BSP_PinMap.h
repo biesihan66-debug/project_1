@@ -40,7 +40,7 @@
 #define RLC_DDS_DATA_PIN    LL_GPIO_PIN_7 /* J3-27，SPI1 AF5 */
 #define RLC_DDS_MCO_PIN     LL_GPIO_PIN_8 /* J2-20，MCO1 AF0 */
 
-/* 外接量程译码器的低、中、高位。下拉设上电安全档。 */
+/* K0~K4 及 KCAL 各占一个输出。下拉设为 RF0 和限流。 */
 #define RLC_RANGE_GPIO GPIOB
 #define RLC_RELAY_K0_PIN   LL_GPIO_PIN_0  /* J3-24 */
 #define RLC_RELAY_K1_PIN   LL_GPIO_PIN_1  /* J3-23 */

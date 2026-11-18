@@ -21,7 +21,7 @@
 static uint32_t packed_adc_samples[ADC_MAX_SAMPLE_PAIRS]
     __attribute__((section(".bss.adc_samples"), aligned(32), zero_init));
 
-static bool CalibrateADC(ADC_TypeDef *adc, uint32_t channel)
+static bool CalibrateADC(ADC_TypeDef *adc, uint32_t channel, uint32_t boost)
 {
     LL_ADC_SetResolution(adc, LL_ADC_RESOLUTION_16B);
     LL_ADC_SetChannelSingleDiff(adc, channel, LL_ADC_SINGLE_ENDED);
@@ -30,9 +30,6 @@ static bool CalibrateADC(ADC_TypeDef *adc, uint32_t channel)
     LL_ADC_REG_SetSequencerRanks(adc, LL_ADC_REG_RANK_1, channel);
     /* ES0392 §2.9.6：关闭 DR FIFO，避免双 ADC 从路错位。 */
     LL_ADC_REG_SetOverrun(adc, LL_ADC_REG_OVR_DATA_OVERWRITTEN);
-    /* HCLK /4；Rev Y 为 30 MHz，Rev V 模拟时钟另 /2。 */
-    const uint32_t revision = DBGMCU->IDCODE >> DBGMCU_IDCODE_REV_ID_Pos;
-    const uint32_t boost = revision <= 0x1003u ? LL_ADC_BOOST_MODE_50MHZ : LL_ADC_BOOST_MODE_20MHZ;
     LL_ADC_SetBoostMode(adc, boost);
     LL_ADC_StartCalibration(adc, LL_ADC_CALIB_OFFSET_LINEARITY, LL_ADC_SINGLE_ENDED);
     /* DS12110：线性和偏移校准约 165010 周期，15 MHz 时约 11 ms。 */
@@ -65,6 +62,14 @@ static bool EnableADC(ADC_TypeDef *adc)
 bool BSP_ADC_Init(void)
 {
     LL_GPIO_InitTypeDef gpio = {0};
+    /* HCLK /4。Y/W 的 ADC 时钟为 30 MHz，Rev V 在模拟侧再除以 2。 */
+    const uint32_t revision = DBGMCU->IDCODE >> DBGMCU_IDCODE_REV_ID_Pos;
+    const uint32_t boost = revision <= 0x1003u ? LL_ADC_BOOST_MODE_50MHZ : LL_ADC_BOOST_MODE_20MHZ;
+    if (revision == 0x1003u)
+    {
+        /* ES0392 §2.9.7：此修订版同时转换可能影响精度，串口提示实板验收。 */
+        BSP_DebugWrite("ADC rev=0x1003 dual_accuracy=check\r\n");
+    }
 
     gpio.Mode = LL_GPIO_MODE_ANALOG;
     gpio.Pin = RLC_ADC_DUT_PIN;
@@ -80,7 +85,8 @@ bool BSP_ADC_Init(void)
     LL_ADC_EnableInternalRegulator(ADC1);
     LL_ADC_EnableInternalRegulator(ADC2);
     DelayUs(LL_ADC_DELAY_INTERNAL_REGUL_STAB_US);
-    if (!CalibrateADC(ADC1, RLC_ADC_DUT_CHANNEL) || !CalibrateADC(ADC2, RLC_ADC_TIA_CHANNEL))
+    if (!CalibrateADC(ADC1, RLC_ADC_DUT_CHANNEL, boost) ||
+        !CalibrateADC(ADC2, RLC_ADC_TIA_CHANNEL, boost))
     {
         return false;
     }
@@ -88,6 +94,9 @@ bool BSP_ADC_Init(void)
 
     LL_ADC_SetMultimode(ADC12_COMMON, LL_ADC_MULTI_DUAL_REG_SIMULT);
     LL_ADC_SetMultiDMATransfer(ADC12_COMMON, LL_ADC_MULTI_REG_DMA_RES_32_10B);
+    /* Each TIM3 edge triggers a one-rank sequence. Keep master DMA requests
+     * enabled across edges. DMA1 itself stops at the programmed frame length. */
+    LL_ADC_REG_SetDataTransferMode(ADC1, LL_ADC_REG_DMA_TRANSFER_UNLIMITED);
     LL_ADC_REG_SetTriggerSource(ADC1, LL_ADC_REG_TRIG_EXT_TIM3_TRGO);
     if (!EnableADC(ADC1) || !EnableADC(ADC2))
     {
@@ -152,13 +161,14 @@ static void StartAcquisition(uint32_t timer_ticks, uint16_t pairs, uint32_t samp
     LL_TIM_EnableCounter(TIM3);
 }
 
-static RLC_Status WaitForSamples(uint32_t deadline_ms)
+static RLC_Status WaitForSamples(uint32_t deadline_ms, RLC_Frame *frame)
 {
     while (BSP_BeforeDeadline(deadline_ms))
     {
         if (LL_DMA_IsActiveFlag_TE0(DMA1) != 0u || LL_DMA_IsActiveFlag_DME0(DMA1) != 0u ||
             LL_DMA_IsActiveFlag_FE0(DMA1) != 0u)
         {
+            frame->fault = "dma_transfer";
             return RLC_STATUS_HARDWARE_ERROR;
         }
         /* DMA 填满后，定时器停下前的新样本可置 OVR，已经搬完的帧仍有效。 */
@@ -168,9 +178,11 @@ static RLC_Status WaitForSamples(uint32_t deadline_ms)
         }
         if (LL_ADC_IsActiveFlag_OVR(ADC1) != 0u || LL_ADC_IsActiveFlag_OVR(ADC2) != 0u)
         {
+            frame->fault = "adc_overrun";
             return RLC_STATUS_HARDWARE_ERROR;
         }
     }
+    frame->fault = "adc_wait";
     return RLC_STATUS_TIMEOUT;
 }
 
@@ -197,9 +209,15 @@ RLC_Status ADC_Capture(uint32_t nominal_hz, float actual_hz, uint8_t cycles, uin
         points_per_cycle = 30u;
         sample_time = LL_ADC_SAMPLINGTIME_32CYCLES_5;
     }
-    if (nominal_hz == 0u || actual_hz <= 0.0f || cycles == 0u || frame == NULL ||
+    if (frame == NULL)
+    {
+        return RLC_STATUS_HARDWARE_ERROR;
+    }
+    frame->fault = NULL;
+    if (nominal_hz == 0u || !(actual_hz > 0.0f) || cycles == 0u ||
         nominal_hz > RLC_TIM3_CLOCK_HZ / points_per_cycle)
     {
+        frame->fault = "adc_config";
         return RLC_STATUS_HARDWARE_ERROR;
     }
     if (!BSP_BeforeDeadline(deadline_ms))
@@ -211,6 +229,7 @@ RLC_Status ADC_Capture(uint32_t nominal_hz, float actual_hz, uint8_t cycles, uin
     const uint32_t timer_ticks = RLC_TIM3_CLOCK_HZ / (nominal_hz * points_per_cycle);
     if (timer_ticks > 65536u || !StopAcquisition())
     {
+        frame->fault = "adc_prepare";
         return RLC_STATUS_HARDWARE_ERROR;
     }
     const uint32_t max_cycles = ADC_MAX_SAMPLE_PAIRS / points_per_cycle;
@@ -220,9 +239,10 @@ RLC_Status ADC_Capture(uint32_t nominal_hz, float actual_hz, uint8_t cycles, uin
         return RLC_STATUS_TIMEOUT;
     }
     StartAcquisition(timer_ticks, pairs, sample_time);
-    const RLC_Status status = WaitForSamples(deadline_ms);
+    const RLC_Status status = WaitForSamples(deadline_ms, frame);
     if (!StopAcquisition())
     {
+        frame->fault = "adc_stop";
         return RLC_STATUS_HARDWARE_ERROR;
     }
     if (status != RLC_STATUS_OK)

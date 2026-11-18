@@ -878,7 +878,7 @@
 <text x="66" y="1197" font-size="25" fill="#1f3040" font-weight="700" text-anchor="start" >区域与接口</text>
 <text x="66" y="1236" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >先装 U1、R1～R6、Rf、C1～C4、Cf；中右区 U2/U3、R7～R10、C5/C6 留待四线补装。</text>
 <text x="66" y="1270" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >3.3 V=A2，GND=V2，DDS VOUT=R15；F+=I4，F−=C9；S+=J14，S−=E15。</text>
-<text x="66" y="1304" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >PA6 → JP1 中脚 U9；PC4 → C8（TP2）。JP1：1=U8/TP1，2=U9/PA6，3=U10/VDIFF。</text>
+<text x="66" y="1304" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >U9、C8 分别经图 08 的 V、I 调理输出接 PA6、PC4。JP1：1=TP1，2=电压调理输入，3=VDIFF。</text>
 <text x="66" y="1338" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >C2/C5/C6 为背面 100 nF 旁路电容，见焊接图；C1 立装于 T 行，已与 R2 留开间隔；小电容先试摆。</text>
 <text x="66" y="1372" font-size="21" fill="#546b7d" font-weight="400" text-anchor="start" >孔阵列 27×22；中心跨度 66.04×53.34 mm。照片顺时针转 90° 横放，板边长焊盘和四角固定孔不计入。</text>
 

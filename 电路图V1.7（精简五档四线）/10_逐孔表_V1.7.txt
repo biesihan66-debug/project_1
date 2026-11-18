@@ -13,6 +13,9 @@ U2 缺口向左  1=I12(BUF_P), 2=I13(BUF_P), 3=I14(S+), 4=I15(GND), 5=F15(S-), 6
 U3 缺口向左  1=I21(VDIFF), 2=I22(DIFF_N), 3=I23(DIFF_P), 4=I24(GND), 5=F24(VREF), 6=F23(VBUF), 7=F22(VBUF), 8=F21(3V3)
 
 原板四线新增走线
+B 为底面铜线，经过同网器件脚或分支孔要焊牢。T 为正面带皮跳线，只剥两端。
+B22 在 A12、B23 在 A21 接 B01 的 3V3 母线；B24 在 K16 接 B03，B25 在 V25 接 B02。
+B36 若用绝缘线，可分两根：I21→K19、K19→U19。两线端头与 R9 的 K19 脚同焊，与 K22 间隔着 R9。
 B22  3V3      A12 → F12
 B23  3V3      A21 → F21
 B24  GND      I15 → J15 → J16 → K16
@@ -27,7 +30,7 @@ B32  VBUF     F22 → F23
 B33  VBUF     F23 → D23
 B34  DIFF_N   I22 → K22
 B35  DIFF_P   I23 → N23
-B36  VDIFF    I21 → I19 → U19
+B36  VDIFF    I21 → I19（拐弯）→ K19（必须焊 R9）→ U19；U19 经 T07 到 U10
 T03  VREF     T10 → T27
 T04  BUF_P    I12 → N12 → N20
 T05  DIFF_N   D20 → J20 → J22 → I22

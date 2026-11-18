@@ -47,6 +47,7 @@ try {
     Invoke-HostTest -Name 'board setting deadlines' -Sources $boardSources
     Invoke-HostTest -Name 'key events' -Sources $keySources
     Invoke-HostTest -Name 'OLED pages' -Sources $oledSources
+    Invoke-HostTest -Name 'Full operator flow' -Sources @((Join-Path $PSScriptRoot 'test_app_flow.c'), (Join-Path $sourcePath 'App_RLC.c'))
 } finally {
     if (Test-Path -LiteralPath $testProgram -PathType Leaf) {
         Remove-Item -LiteralPath $testProgram

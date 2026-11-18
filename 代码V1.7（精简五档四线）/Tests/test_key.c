@@ -74,6 +74,7 @@ static void TestTimerWrapAndReset(void)
     CheckEvent(10u, true, KEY_NONE, "20 ms press across wrap");
     CheckEvent(20u, false, KEY_NONE, "release after wrap");
     CheckEvent(40u, false, KEY_SHORT_PRESS, "short press recognized across wrap");
+    if (40u - Key_PressedAt() != 50u) exit(EXIT_FAILURE);
 
     CheckEvent(100u, true, KEY_NONE, "hold before reset");
     CheckEvent(120u, true, KEY_NONE, "hold before reset debounced");

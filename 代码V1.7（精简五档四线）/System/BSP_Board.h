@@ -25,7 +25,10 @@ RLC_Status BSP_SelectMeasurement(uint8_t frequency_index, uint8_t range_index,
 RLC_Status BSP_CaptureFrame(uint8_t cycles, uint32_t deadline_ms, RLC_Frame *frame);
 
 /* 停止激励并回到安全反馈档。 */
-void BSP_StopMeasurement(void);
+bool BSP_StopMeasurement(void);
+
+/* 主循环调用。仅在 DDS 停波失败时每隔约 100 ms 重试，重试期间保持限流。 */
+void BSP_RetryPendingStop(void);
 
 /* 获取毫秒计数；约 49.7 天回绕。用无符号时间差计算时长。 */
 uint32_t BSP_GetMillis(void);

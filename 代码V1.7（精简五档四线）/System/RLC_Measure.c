@@ -17,6 +17,7 @@
 #include "RLC_Measure.h"
 #include "RLC_Calculate.h"
 #include "BSP_Board.h"
+#include "RLC_Commissioning.h"
 
 #include <math.h>
 
@@ -47,10 +48,7 @@ typedef struct
 {
     RLC_Result result;
     uint8_t frequency_index;
-    bool normal_allowed;
 } MeasureTrial;
-
-#include "RLC_Commissioning.h"
 
 static bool four_wire;
 
@@ -127,6 +125,7 @@ static MeasureTrial CaptureImpedance(uint8_t frequency_index, uint8_t range_inde
     result->range_index = range_index;
     if (!isfinite(zf.real) || zf.real <= 0.0f || !isfinite(zf.imag))
     {
+        result->fault = "feedback_model";
         return trial;
     }
     if (TimeExpired(deadline_ms))
@@ -138,11 +137,13 @@ static MeasureTrial CaptureImpedance(uint8_t frequency_index, uint8_t range_inde
     result->status = BSP_SelectMeasurement(frequency_index, range_index, normal, deadline_ms);
     if (result->status != RLC_STATUS_OK)
     {
+        result->fault = "select";
         return trial;
     }
     result->status = BSP_CaptureFrame(cycles, deadline_ms, &frame);
     if (result->status != RLC_STATUS_OK)
     {
+        result->fault = frame.fault != NULL ? frame.fault : "capture";
         return trial;
     }
     if (TimeExpired(deadline_ms))
@@ -151,14 +152,17 @@ static MeasureTrial CaptureImpedance(uint8_t frequency_index, uint8_t range_inde
     }
     else if (frame.dut_clipped || frame.tia_clipped)
     {
+        result->fault = frame.dut_clipped ? "voltage_window" : "tia_window";
         result->status = RLC_STATUS_OVERLOAD;
     }
     else if (!RLC_Demodulate(&frame, &result->phasors))
     {
+        result->fault = "demod";
         result->status = RLC_STATUS_HARDWARE_ERROR;
     }
-    else if (normal && Distorted(&frame, &result->phasors))
+    else if (Distorted(&frame, &result->phasors))
     {
+        result->fault = "waveform";
         result->status = RLC_STATUS_OVERLOAD;
     }
     else if (result->phasors.dut_peak_codes < minimum_dut_codes ||
@@ -173,11 +177,10 @@ static MeasureTrial CaptureImpedance(uint8_t frequency_index, uint8_t range_inde
     return trial;
 }
 
-/* A limited trial must identify a usable point before KCAL bypasses 100 Ω. */
-static bool SelectNormalRange(MeasureTrial *trial)
+/* 按限流试测的原始阻抗估算旁路后的峰值电流，选出跨阻输出不超过 1.25 V 的最高档。 */
+static bool SelectNormalRange(uint8_t frequency_index, RLC_Complex raw_ohm, uint8_t *range_index)
 {
-    const RLC_Complex z = trial->result.impedance_ohm;
-    const float magnitude = hypotf(z.real, z.imag);
+    const float magnitude = hypotf(raw_ohm.real, raw_ohm.imag);
     const float estimated_peak_current = 0.778f / magnitude; /* 0.55 Vrms upper bound */
     if (!isfinite(estimated_peak_current) || estimated_peak_current > 0.126f)
     {
@@ -185,11 +188,10 @@ static bool SelectNormalRange(MeasureTrial *trial)
     }
     for (uint8_t range = RLC_RANGE_COUNT; range > 0u; --range)
     {
-        const RLC_Complex zf = FeedbackImpedance(trial->frequency_index, range - 1u);
+        const RLC_Complex zf = FeedbackImpedance(frequency_index, range - 1u);
         if (estimated_peak_current * hypotf(zf.real, zf.imag) <= 1.25f)
         {
-            /* Keep scout's own range until its calibration has been applied. */
-            trial->result.range_index = (uint8_t)(range - 1u);
+            *range_index = (uint8_t)(range - 1u);
             return true;
         }
     }
@@ -377,21 +379,13 @@ static MeasureTrial ScoutAndResolve(const RLC_Calibration *calibration, uint8_t 
                                     uint32_t deadline_ms)
 {
     MeasureTrial trial = ScoutFrequency(frequency_index, deadline_ms);
-    MeasureTrial normal = trial;
+    const RLC_Complex raw_ohm = trial.result.impedance_ohm;
+    /* 先用试测档的记录校准，再用补偿前的阻抗决定能否接通 KCAL。 */
     ResolveComponent(&trial, calibration);
-    if (trial.result.status == RLC_STATUS_OK)
+    if (trial.result.status == RLC_STATUS_OK &&
+        !SelectNormalRange(frequency_index, raw_ohm, &trial.result.range_index))
     {
-        /* Compute the admission limit from the uncorrected impedance at the
-         * amplifier terminals, including actual fixture loading. */
-        trial.normal_allowed = SelectNormalRange(&normal);
-        if (!trial.normal_allowed)
-        {
-            trial.result.status = RLC_STATUS_OVERLOAD;
-        }
-        else
-        {
-            trial.result.range_index = normal.result.range_index;
-        }
+        trial.result.status = RLC_STATUS_OVERLOAD;
     }
     return trial;
 }
@@ -446,7 +440,8 @@ static MeasureTrial ChooseFrequencyAndRange(const RLC_Calibration *calibration, 
 
     for (size_t i = 0u; i < sizeof alternate_order / sizeof alternate_order[0]; ++i)
     {
-        if (FatalStatus(best.result.status) || TimeExpired(deadline_ms))
+        if (FatalStatus(best.result.status) ||
+            (best.result.status == RLC_STATUS_OK && TimeExpired(deadline_ms)))
         {
             break;
         }
@@ -471,7 +466,9 @@ static MeasureTrial ChooseFrequencyAndRange(const RLC_Calibration *calibration, 
 
         visited[frequency_index] = true;
         MeasureTrial candidate = ScoutAndResolve(calibration, frequency_index, deadline_ms);
-        if (candidate.result.status == RLC_STATUS_HARDWARE_ERROR)
+        /* 备选频点超时时，只有已有有效试测值才能继续正式复测。 */
+        if (candidate.result.status == RLC_STATUS_HARDWARE_ERROR ||
+            (candidate.result.status == RLC_STATUS_TIMEOUT && best.result.status != RLC_STATUS_OK))
         {
             return candidate;
         }
@@ -485,7 +482,11 @@ static MeasureTrial ChooseFrequencyAndRange(const RLC_Calibration *calibration, 
 
 static RLC_Result FinishMeasurement(MeasureTrial trial, uint32_t start_ms)
 {
-    BSP_StopMeasurement();
+    if (!BSP_StopMeasurement())
+    {
+        trial.result.status = RLC_STATUS_HARDWARE_ERROR;
+        trial.result.fault = "dds_stop";
+    }
     trial.result.elapsed_ms = BSP_GetMillis() - start_ms;
     if (trial.result.elapsed_ms >= MEASUREMENT_LIMIT_MS && trial.result.status == RLC_STATUS_OK)
     {
@@ -496,19 +497,18 @@ static RLC_Result FinishMeasurement(MeasureTrial trial, uint32_t start_ms)
 
 RLC_Result RLC_MeasureAuto(const RLC_Calibration *calibration, RLC_Mode mode)
 {
-    if ((mode != RLC_MODE_BASIC && mode != RLC_MODE_EXTENDED))
+    if (mode != RLC_MODE_BASIC && mode != RLC_MODE_EXTENDED)
     {
         return (RLC_Result){.status = RLC_STATUS_HARDWARE_ERROR};
     }
     const uint32_t start_ms = BSP_GetMillis();
     MeasureTrial trial = ChooseFrequencyAndRange(calibration, mode, start_ms + SCOUT_LIMIT_MS);
-    if (trial.result.status == RLC_STATUS_OK && trial.normal_allowed)
+    if (trial.result.status == RLC_STATUS_OK)
     {
         const RLC_Component expected = trial.result.component;
         trial = CaptureImpedance(trial.frequency_index, trial.result.range_index, FINAL_CYCLES,
                                  dut_min_codes, tia_min_codes, true,
                                  start_ms + MEASUREMENT_LIMIT_MS);
-        BSP_StopMeasurement();
         ResolveComponent(&trial, calibration);
         if (trial.result.status == RLC_STATUS_OK && trial.result.component != expected)
         {
@@ -611,7 +611,10 @@ RLC_Status RLC_CaptureCalibration(RLC_Calibration *calibration, bool open, RLC_M
             status = CaptureShort(&candidate, frequency, deadline_ms);
         }
     }
-    BSP_StopMeasurement();
+    if (!BSP_StopMeasurement())
+    {
+        status = RLC_STATUS_HARDWARE_ERROR;
+    }
     if (status == RLC_STATUS_OK)
     {
         *calibration = candidate;

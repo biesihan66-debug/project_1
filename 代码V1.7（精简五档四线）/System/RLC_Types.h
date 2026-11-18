@@ -38,6 +38,7 @@ typedef struct
     float cycles_per_sample;        /* 每个采样点前进的激励周期数，用于同步解调。 */
     float dut_volts_per_code;       /* 被测端电压通道的 V/ADC 码。 */
     float tia_volts_per_code;       /* 跨阻放大器输出通道的 V/ADC 码。 */
+    const char *fault;              /* Capture failure detail for the serial log. */
     bool dut_clipped;               /* 被测端电压是否触及 ADC 上下限。 */
     bool tia_clipped;               /* 跨阻输出是否触及 ADC 上下限。 */
 } RLC_Frame;
@@ -72,6 +73,7 @@ typedef enum
 /* 一次测量的结果。App_RLC.c 的 result 接收它，OLED_Display.c 读取它并显示。 */
 typedef struct
 {
+    const char *fault;             /* Static diagnostic text on failure. */
     RLC_Status status;         /* OLED 第 1/4 行：成功或错误；仅 OK 时数值有效。 */
     RLC_Component component;   /* OLED 第 1 行：R、L 或 C。 */
     float component_value;     /* OLED 第 2 行：Ω、H 或 F；显示时自动换单位。 */

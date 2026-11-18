@@ -1,4 +1,5 @@
-PASS: RLC limits, 3606 basic/extended sweep cases, fractional-cycle demodulation, feedback capacitance, calibration, time wrap, and faults
-PASS: relay masks, break-before-change, deadlines, CAL idle and stopped acquisition
+PASS: RLC limits, 3606 basic/extended sweep cases, fractional-cycle demodulation, feedback capacitance, calibration, raw bypass limits, alternate timeouts, clipping and acquisition faults
+PASS: relay masks, deadlines, CAL idle and automatic STOP recovery across timer wrap
 PASS: key debounce, short and long press, late polling, timer wrap, and reset
 PASS: reference OLED glyphs, row updates, clearing, and I2C failure recovery
+PASS: Full menus, limited-only repeats, OLED timing, fresh calibration, cancel and failed saves
