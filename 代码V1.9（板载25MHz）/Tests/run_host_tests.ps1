@@ -31,8 +31,8 @@ $oledSources = @(
     (Join-Path $sourcePath 'Text_Format.c')
 )
 
-function Invoke-HostTest([string]$Name, [string[]]$Sources) {
-    & $Compiler '-std=c99' '-O2' '-Wall' '-Wextra' '-Werror' '-pedantic' '-DRLC_HOST_RELAY_TEST' "-I$sourcePath" @sources '-o' $testProgram '-lm'
+function Invoke-HostTest([string]$Name, [string[]]$Sources, [string[]]$Defines = @()) {
+    & $Compiler '-std=c99' '-O2' '-Wall' '-Wextra' '-Werror' '-pedantic' '-DRLC_HOST_RELAY_TEST' @Defines "-I$sourcePath" @sources '-o' $testProgram '-lm'
     if ($LASTEXITCODE -ne 0) {
         throw "Host compiler for $Name exited with $LASTEXITCODE."
     }
@@ -47,7 +47,9 @@ try {
     Invoke-HostTest -Name 'board setting deadlines' -Sources $boardSources
     Invoke-HostTest -Name 'key events' -Sources $keySources
     Invoke-HostTest -Name 'OLED pages' -Sources $oledSources
-    Invoke-HostTest -Name 'Full operator flow' -Sources @((Join-Path $PSScriptRoot 'test_app_flow.c'), (Join-Path $sourcePath 'App_RLC.c'))
+    $flowSources = @((Join-Path $PSScriptRoot 'test_app_flow.c'), (Join-Path $sourcePath 'App_RLC.c'))
+    Invoke-HostTest -Name 'Full operator flow' -Sources $flowSources
+    Invoke-HostTest -Name 'Fixed1k operator flow' -Sources $flowSources -Defines @('-DRLC_APP_FIXED_1KHZ=1')
 } finally {
     if (Test-Path -LiteralPath $testProgram -PathType Leaf) {
         Remove-Item -LiteralPath $testProgram

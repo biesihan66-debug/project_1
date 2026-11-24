@@ -75,7 +75,7 @@ static const char *BandLabel(void)
 
 static void ShowReady(const char *hint)
 {
-    ShowPage("RLC V1.9", WiringLabel(), BandLabel(), hint);
+    ShowPage("RLC V1.9", WiringLabel(), RLC_APP_FIXED_1KHZ ? "1KHZ 1K LIMITED" : BandLabel(), hint);
 }
 
 static void ShowSetup(void)
@@ -86,11 +86,12 @@ static void ShowSetup(void)
     }
     else if (app_page == APP_SELECT_BAND)
     {
-        ShowPage("SELECT BAND", BandLabel(), "PRESS TO CHANGE", "HOLD TO SELECT");
+        ShowPage(RLC_APP_FIXED_1KHZ ? "SELECT CAL BAND" : "SELECT BAND",
+                 BandLabel(), "PRESS TO CHANGE", "HOLD TO SELECT");
     }
     else
     {
-        const char *const entries[] = {"OPEN SHORT CAL", "CHANGE 2W / 4W", "CHANGE BAND", "1K LIMITED TEST"};
+        const char *const entries[] = {"OPEN SHORT CAL", "CHANGE 2W / 4W", RLC_APP_FIXED_1KHZ ? "CHANGE CAL BAND" : "CHANGE BAND", "1K LIMITED TEST"};
         ShowPage("SETTINGS", entries[menu_index], "PRESS NEXT", "HOLD TO OPEN");
     }
 }

@@ -11,7 +11,7 @@
 
 /* 初始化 SSD1306 并清屏；先调用一次，成功后才显示页面。 */
 bool OLED_DisplayInit(void);
-/* 仅替换第 1 行的忙碌提示，例如 "MEASURING"。 */
+/* 清除上一份结果并显示忙碌提示，例如 "MEASURING"。 */
 bool OLED_ShowActivity(const char *message);
 /* line1~line4 分别是四行文本；每行可容纳 21 个完整的 ASCII 字符。 */
 bool OLED_ShowLines(const char *line1, const char *line2, const char *line3, const char *line4);

@@ -1,1 +1,1 @@
-PASS: Fixed1k normal measurement selects 1 kHz / 1 kohm with no auto-ranging.
+PASS: Fixed1k menus, fixed frequency/range, calibration and retries

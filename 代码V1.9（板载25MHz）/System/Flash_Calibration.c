@@ -1,11 +1,13 @@
 /*
  * 开短路校准的 Flash 日志。H743 Bank 2 的扇区 4、5各存一份，轮流更新。
  * 每份的第一个 32 B Flash 字为提交头，包含魔数、序号、数据字节数与 CRC。
+ * V1.9 记录 DDS 时钟频率，旧激励配置的开短校准须重新采集。
  * data[i] 从偏移 32 起，写完数据后提交头。旧扇区保留到下一次保存。
  * readback[] 在 DMA 可访问的 D2 SRAM。保存成功后由 App 层更新 OLED 第 4 行。
  */
 #include "Flash_Calibration.h"
 #include "BSP_Board.h"
+#include "BSP_PinMap.h"
 #include "stm32h7xx_ll_bus.h"
 #include "stm32h7xx_ll_dma.h"
 
@@ -15,7 +17,7 @@
 #define CALIBRATION_SECTOR_B 0x081A0000u
 #define CALIBRATION_SECTOR_BYTES 0x20000u
 #define CALIBRATION_MAX_BYTES 1024u
-#define RECORD_MAGIC 0x37434C52u
+#define RECORD_MAGIC 0x39434C52u
 #define FLASH_WORD_BYTES 32u
 #define FLASH_WORD_UINTS (FLASH_WORD_BYTES / sizeof(uint32_t))
 #define FLASH_KEY1 0x45670123u
@@ -32,7 +34,8 @@ typedef struct
     uint32_t sequence;
     uint32_t size;
     uint32_t crc;
-    uint32_t reserved[4];
+    uint32_t dds_clock_hz;
+    uint32_t reserved[3];
 } RecordHeader;
 
 typedef struct
@@ -180,7 +183,8 @@ bool Flash_LoadCalibration(void *data, size_t size)
     }
     bool read_failed;
     const FlashRecord latest = LatestRecord(&read_failed);
-    if (!latest.valid || size != latest.header.size || !ReadRecord(latest.address).valid)
+    if (!latest.valid || size != latest.header.size ||
+        latest.header.dds_clock_hz != RLC_AD9833_MCLK_HZ || !ReadRecord(latest.address).valid)
     {
         return false;
     }
@@ -255,6 +259,7 @@ static bool WriteRecord(uint32_t address, uint32_t sequence, const uint8_t *byte
         .sequence = sequence,
         .size = size,
         .crc = RecordCRC(bytes, size, sequence),
+        .dds_clock_hz = RLC_AD9833_MCLK_HZ,
     };
     memcpy(words, &header, sizeof words);
     return ProgramFlashWord(address, words) && ReadRecord(address).valid;

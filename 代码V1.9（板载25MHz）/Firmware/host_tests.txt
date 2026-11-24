@@ -3,3 +3,4 @@ PASS: relay masks, deadlines, CAL idle and automatic STOP recovery across timer 
 PASS: key debounce, short and long press, late polling, timer wrap, and reset
 PASS: reference OLED glyphs, row updates, clearing, and I2C failure recovery
 PASS: Full menus, limited-only repeats, OLED timing, fresh calibration, cancel and failed saves
+PASS: Fixed1k menus, fixed frequency/range, calibration and retries

@@ -68,9 +68,11 @@ int main(void)
 
     written_pages = 0u;
     assert(OLED_ShowActivity("WAIT"));
-    assert(written_pages == 1u);
+    assert(written_pages == 0x55u);
     check_line(0u, "WAIT");
-    check_line(2u, "47 pF");
+    check_line(2u, "");
+    check_line(4u, "");
+    check_line(6u, "");
 
     unsigned before = transfer_count;
     reject_next_transfer = true;
@@ -82,10 +84,10 @@ int main(void)
 
     result.status = RLC_STATUS_TIMEOUT;
     assert(OLED_ShowResult(&result, 1000.0f));
-    check_line(0u, "MEASURE ERROR");
-    check_line(2u, "---");
-    check_line(4u, "100 kHz");
-    check_line(6u, "TIMEOUT");
+    check_line(0u, "TIMEOUT");
+    check_line(2u, "");
+    check_line(4u, "");
+    check_line(6u, "PRESS TO RETRY");
     puts("PASS: reference OLED glyphs, row updates, clearing, and I2C failure recovery");
     return 0;
 }

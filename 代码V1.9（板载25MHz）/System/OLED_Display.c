@@ -2,7 +2,7 @@
  * RLC 页面排版。显示驱动和字模复用江协科技的 OLED.c / OLED_Data.c。
  * 逻辑行 1 至 4 对应 y=0、16、32、48 像素，使用 6×8 字模。
  * value_line、frequency_line、range_line 分别是第 2、3、4 行文本。
- * result->component 决定第 1 行，result->status 的失败提示在第 4 行。
+ * result->component 决定第 1 行，测量失败时第 1 行显示原因，第 4 行提示重测。
  */
 #include "OLED_Display.h"
 #include "OLED.h"
@@ -42,7 +42,7 @@ bool OLED_ShowLines(const char *line1, const char *line2, const char *line3, con
 
 bool OLED_ShowActivity(const char *message)
 {
-    return RenderLine(OLED_TYPE_Y, message);
+    return OLED_ShowLines(message, "", "", "");
 }
 
 const char *OLED_GetStatusText(RLC_Status status)
@@ -164,6 +164,11 @@ bool OLED_ShowResult(const RLC_Result *result, float feedback_ohm)
     TextBuffer frequency = Text_Begin(frequency_line, sizeof frequency_line);
     TextBuffer range = Text_Begin(range_line, sizeof range_line);
 
+    if (result->status != RLC_STATUS_OK)
+    {
+        return OLED_ShowLines(OLED_GetStatusText(result->status), "", "", "PRESS TO RETRY");
+    }
+
     if (result->frequency_hz >= 1000u && result->frequency_hz % 1000u == 0u)
     {
         Text_AddUnsigned(&frequency, result->frequency_hz / 1000u);
@@ -177,12 +182,6 @@ bool OLED_ShowResult(const RLC_Result *result, float feedback_ohm)
     else
     {
         Text_Append(&frequency, "---");
-    }
-
-    if (result->status != RLC_STATUS_OK)
-    {
-        return OLED_ShowLines("MEASURE ERROR", "---", frequency_line,
-                              OLED_GetStatusText(result->status));
     }
 
     FormatMeasurementValue(&value, result);

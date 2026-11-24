@@ -10,6 +10,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifndef RLC_APP_FIXED_1KHZ
+#define RLC_APP_FIXED_1KHZ 0
+#endif
+
 static KeyEvent event;
 static unsigned fixed_runs, auto_runs, open_runs, short_runs, writes;
 static unsigned stop_checks;
@@ -44,7 +48,7 @@ static void switch_band(void)
     press(KEY_LONG_PRESS);
     press(KEY_SHORT_PRESS);
     press(KEY_SHORT_PRESS);
-    assert(strcmp(detail, "CHANGE BAND") == 0);
+    assert(strcmp(detail, RLC_APP_FIXED_1KHZ ? "CHANGE CAL BAND" : "CHANGE BAND") == 0);
     press(KEY_LONG_PRESS);
     press(KEY_SHORT_PRESS);
     press(KEY_LONG_PRESS);
@@ -98,7 +102,12 @@ bool Flash_SaveCalibration(const void *p, size_t n)
 void RLC_SelectSenseProfile(bool four) { four_wire = four; }
 RLC_Result RLC_MeasureFixed(const RLC_Calibration *cal, uint8_t f, uint8_t r)
 {
-    assert(cal == NULL && f == RLC_FREQUENCY_1_KHZ && r == RLC_RANGE_1_KOHM);
+    assert(f == RLC_FREQUENCY_1_KHZ && r == RLC_RANGE_1_KOHM);
+    if (fixed_runs < 2u)
+        assert(cal == NULL); /* Explicit limited test, always RAW. */
+    else
+        assert(RLC_APP_FIXED_1KHZ && four_wire && cal &&
+               memcmp(cal, &saved_profiles[1], sizeof *cal) == 0);
     ++fixed_runs;
     return (RLC_Result){.status = RLC_STATUS_OK};
 }
@@ -137,7 +146,7 @@ int main(void)
     assert(stop_checks == 1u);
     press(KEY_SHORT_PRESS);
     press(KEY_LONG_PRESS);
-    assert(!four_wire && strcmp(title,"SELECT BAND") == 0);
+    assert(!four_wire && strcmp(title, RLC_APP_FIXED_1KHZ ? "SELECT CAL BAND" : "SELECT BAND") == 0);
     press(KEY_LONG_PRESS);
     press(KEY_LONG_PRESS);
     for (unsigned i = 0; i < 3; ++i) press(KEY_SHORT_PRESS);
@@ -155,7 +164,7 @@ int main(void)
     press(KEY_SHORT_PRESS); /* BASIC -> EXT */
     press(KEY_LONG_PRESS);
     press(KEY_SHORT_PRESS);
-    assert(auto_runs == 1u);
+    assert(RLC_APP_FIXED_1KHZ ? (fixed_runs == 3u && auto_runs == 0u) : auto_runs == 1u);
     open_calibration();
     assert(strcmp(detail,"OPEN STANDARD") == 0);
     press(KEY_SHORT_PRESS);
@@ -192,6 +201,7 @@ int main(void)
     switch_band();          /* 回 EXT，确认实际测量收到刚保存的 BASIC 记录。 */
     expected_band = RLC_MODE_EXTENDED;
     press(KEY_SHORT_PRESS);
-    puts("PASS: Full menus, limited-only repeats, OLED timing, fresh calibration, cancel and failed saves");
+    puts(RLC_APP_FIXED_1KHZ ? "PASS: Fixed1k menus, fixed frequency/range, calibration and retries" :
+                            "PASS: Full menus, limited-only repeats, OLED timing, fresh calibration, cancel and failed saves");
     return 0;
 }
