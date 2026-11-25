@@ -28,7 +28,6 @@
 
 typedef enum
 {
-    APP_SELECT_WIRING,
     APP_SELECT_BAND,
     APP_MEASURE,
     APP_MENU,
@@ -38,8 +37,8 @@ typedef enum
 } AppPage;
 
 /* 只有主循环访问这些状态，中断负责板级计时和 DMA。 */
-static AppPage app_page = APP_SELECT_WIRING;
-static bool selected_four_wire = true;
+static AppPage app_page = APP_SELECT_BAND;
+
 static RLC_Mode selected_band = RLC_MODE_BASIC;
 static uint8_t menu_index;
 static RLC_Calibration stored_calibration[2];
@@ -63,10 +62,6 @@ static void ShowPage(const char *line1, const char *line2, const char *line3, co
     }
 }
 
-static const char *WiringLabel(void)
-{
-    return selected_four_wire ? "4 WIRE JP1 2-3" : "2 WIRE JP1 1-2";
-}
 
 static const char *BandLabel(void)
 {
@@ -75,23 +70,19 @@ static const char *BandLabel(void)
 
 static void ShowReady(const char *hint)
 {
-    ShowPage("RLC V1.9", WiringLabel(), RLC_APP_FIXED_1KHZ ? "1KHZ 1K LIMITED" : BandLabel(), hint);
+    ShowPage("RLC V1.9", "4W FIXED U9-U10", RLC_APP_FIXED_1KHZ ? "1KHZ 1K LIMITED" : BandLabel(), hint);
 }
 
 static void ShowSetup(void)
 {
-    if (app_page == APP_SELECT_WIRING)
-    {
-        ShowPage("CONFIRM JP1", WiringLabel(), "PRESS TO CHANGE", "HOLD TO SELECT");
-    }
-    else if (app_page == APP_SELECT_BAND)
+    if (app_page == APP_SELECT_BAND)
     {
         ShowPage(RLC_APP_FIXED_1KHZ ? "SELECT CAL BAND" : "SELECT BAND",
                  BandLabel(), "PRESS TO CHANGE", "HOLD TO SELECT");
     }
     else
     {
-        const char *const entries[] = {"OPEN SHORT CAL", "CHANGE 2W / 4W", RLC_APP_FIXED_1KHZ ? "CHANGE CAL BAND" : "CHANGE BAND", "1K LIMITED TEST"};
+        const char *const entries[] = {"OPEN SHORT CAL", RLC_APP_FIXED_1KHZ ? "CHANGE CAL BAND" : "CHANGE BAND", "1K LIMITED TEST"};
         ShowPage("SETTINGS", entries[menu_index], "PRESS NEXT", "HOLD TO OPEN");
     }
 }
@@ -100,7 +91,7 @@ static void ShowCalibrationPrompt(const char *hint)
 {
     if (app_page == APP_CALIBRATE_OPEN)
     {
-        ShowPage("CAL OPEN", selected_four_wire ? "OPEN STANDARD" : "REMOVE COMPONENT",
+        ShowPage("CAL OPEN", "OPEN STANDARD",
                  "PRESS WHEN READY", hint);
     }
     else
@@ -118,7 +109,7 @@ static void RunMeasurement(uint32_t command_ms, bool limited)
     {
         display_ready = OLED_ShowActivity("MEASURING");
     }
-    const RLC_Calibration *cal = &stored_calibration[selected_four_wire ? 1u : 0u];
+    const RLC_Calibration *cal = &stored_calibration[1u];
     if (limited || RLC_APP_FIXED_1KHZ)
     {
         result = RLC_MeasureFixed(limited ? NULL : cal, RLC_FREQUENCY_1_KHZ, RLC_RANGE_1_KOHM);
@@ -162,7 +153,7 @@ static void CaptureCalibrationStep(void)
         Serial_PrintCalibration(true, RLC_STATUS_OK);
         return;
     }
-    const uint8_t wiring = selected_four_wire ? 1u : 0u;
+    const uint8_t wiring = 1u;
     RLC_Calibration previous = stored_calibration[wiring];
     stored_calibration[wiring] = pending_calibration;
     if (!Flash_SaveCalibration(stored_calibration, sizeof stored_calibration))
@@ -180,21 +171,7 @@ static void CaptureCalibrationStep(void)
 static void HandleButtonEvent(KeyEvent event, uint32_t command_ms)
 {
     EnsureDisplay();
-    if (app_page == APP_SELECT_WIRING)
-    {
-        if (event == KEY_SHORT_PRESS)
-        {
-            selected_four_wire = !selected_four_wire;
-        }
-        else
-        {
-            RLC_SelectSenseProfile(selected_four_wire);
-            BSP_DebugWrite(selected_four_wire ? "WIRING 4W\r\n" : "WIRING 2W\r\n");
-            app_page = APP_SELECT_BAND;
-        }
-        ShowSetup();
-    }
-    else if (app_page == APP_SELECT_BAND)
+    if (app_page == APP_SELECT_BAND)
     {
         if (event == KEY_SHORT_PRESS)
         {
@@ -212,7 +189,7 @@ static void HandleButtonEvent(KeyEvent event, uint32_t command_ms)
     {
         if (event == KEY_SHORT_PRESS)
         {
-            menu_index = (uint8_t)((menu_index + 1u) % 4u);
+            menu_index = (uint8_t)((menu_index + 1u) % 3u);
             ShowSetup();
         }
         else if (menu_index == 0u)
@@ -222,14 +199,14 @@ static void HandleButtonEvent(KeyEvent event, uint32_t command_ms)
             app_page = APP_CALIBRATE_OPEN;
             ShowCalibrationPrompt("HOLD TO CANCEL");
         }
-        else if (menu_index == 3u)
+        else if (menu_index == 2u)
         {
             app_page = APP_LIMITED_TEST;
-            ShowPage("1K LIMITED TEST", WiringLabel(), "PRESS RUN 1K", "HOLD TO EXIT");
+            ShowPage("1K LIMITED TEST", "4W FIXED U9-U10", "PRESS RUN 1K", "HOLD TO EXIT");
         }
         else
         {
-            app_page = menu_index == 1u ? APP_SELECT_WIRING : APP_SELECT_BAND;
+            app_page = APP_SELECT_BAND;
             ShowSetup();
         }
     }
@@ -277,6 +254,8 @@ bool App_Init(void)
         BSP_DebugWrite("BOARD INIT ERROR\r\n");
         return false;
     }
+    RLC_SelectSenseProfile(true); /* JP1 U9-U10 is hardwired. */
+    BSP_DebugWrite("WIRING 4W FIXED\r\n");
     Key_Init();
     (void)Flash_LoadCalibration(stored_calibration, sizeof stored_calibration);
     EnsureDisplay();

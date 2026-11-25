@@ -34,12 +34,13 @@ enum
     CALIBRATION_LIMIT_MS = 8000
 };
 
-static const float dut_min_codes = 320.0f;
-static const float scout_min_codes = 24.0f;
-static const float tia_min_codes = 112.0f;
-static const float tia_preferred_min_codes = 1120.0f;
-static const float tia_preferred_max_codes = 6720.0f;
-static const float tia_target_codes = 3840.0f;
+/* Input-referred scouting and range targets at B-board gain 1/4. */
+static const float dut_min_codes = 289.0f;
+static const float scout_min_codes = 22.0f;
+static const float tia_min_codes = 101.0f;
+static const float tia_preferred_min_codes = 1012.0f;
+static const float tia_preferred_max_codes = 6070.0f;
+static const float tia_target_codes = 3469.0f;
 static const float relative_phase_floor = 0.015f;
 static const float absolute_reactance_floor_ohm = 0.020f;
 static const float two_pi = 6.28318530717958648f;

@@ -47,7 +47,6 @@ static void switch_band(void)
 {
     press(KEY_LONG_PRESS);
     press(KEY_SHORT_PRESS);
-    press(KEY_SHORT_PRESS);
     assert(strcmp(detail, RLC_APP_FIXED_1KHZ ? "CHANGE CAL BAND" : "CHANGE BAND") == 0);
     press(KEY_LONG_PRESS);
     press(KEY_SHORT_PRESS);
@@ -141,28 +140,19 @@ int main(void)
     saved_profiles[0].open_mask = saved_profiles[0].short_mask = 1u;
     saved_profiles[0].short_ohm[0][0].real = 0.15f;
     const RLC_Calibration two_wire = saved_profiles[0];
-    assert(App_Init() && strcmp(title,"CONFIRM JP1") == 0);
+    assert(App_Init() && four_wire && strcmp(title, RLC_APP_FIXED_1KHZ ? "SELECT CAL BAND" : "SELECT BAND") == 0);
     App_Run(); /* 即使没有按键，主循环也应处理尚未送达的停波指令。 */
     assert(stop_checks == 1u);
-    press(KEY_SHORT_PRESS);
-    press(KEY_LONG_PRESS);
-    assert(!four_wire && strcmp(title, RLC_APP_FIXED_1KHZ ? "SELECT CAL BAND" : "SELECT BAND") == 0);
     press(KEY_LONG_PRESS);
     press(KEY_LONG_PRESS);
-    for (unsigned i = 0; i < 3; ++i) press(KEY_SHORT_PRESS);
+    for (unsigned i = 0; i < 2; ++i) press(KEY_SHORT_PRESS);
     assert(strcmp(detail, "1K LIMITED TEST") == 0);
     press(KEY_LONG_PRESS);
     press(KEY_SHORT_PRESS);
     press(KEY_SHORT_PRESS);
     assert(fixed_runs == 2u && auto_runs == 0u && writes == 0u);
     press(KEY_LONG_PRESS); /* exit bench -> ready */
-    press(KEY_LONG_PRESS); /* settings, CHANGE 2W / 4W */
-    press(KEY_SHORT_PRESS);
-    press(KEY_LONG_PRESS);
-    press(KEY_SHORT_PRESS);
-    press(KEY_LONG_PRESS);
-    press(KEY_SHORT_PRESS); /* BASIC -> EXT */
-    press(KEY_LONG_PRESS);
+    switch_band(); /* BASIC -> EXT */
     press(KEY_SHORT_PRESS);
     assert(RLC_APP_FIXED_1KHZ ? (fixed_runs == 3u && auto_runs == 0u) : auto_runs == 1u);
     open_calibration();

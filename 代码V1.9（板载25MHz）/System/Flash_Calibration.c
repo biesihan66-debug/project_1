@@ -17,7 +17,7 @@
 #define CALIBRATION_SECTOR_B 0x081A0000u
 #define CALIBRATION_SECTOR_BYTES 0x20000u
 #define CALIBRATION_MAX_BYTES 1024u
-#define RECORD_MAGIC 0x39434C52u
+#define RECORD_MAGIC 0x42434C52u /* Inventory B board: invalidate earlier analog calibrations. */
 #define FLASH_WORD_BYTES 32u
 #define FLASH_WORD_UINTS (FLASH_WORD_BYTES / sizeof(uint32_t))
 #define FLASH_KEY1 0x45670123u

@@ -29,10 +29,11 @@
 #define RLC_ADC_TIA_GPIO           GPIOC
 #define RLC_ADC_TIA_PIN            LL_GPIO_PIN_4  /* J3-26，ADC2_INP4 */
 #define RLC_ADC_TIA_CHANNEL        LL_ADC_CHANNEL_4
-#define RLC_ADC_DUT_VOLTS_PER_CODE (3.3f / (65536.0f * 0.27675f))
-#define RLC_ADC_TIA_VOLTS_PER_CODE (3.3f / (65536.0f * 0.27675f))
-#define RLC_ADC_LOW_RAIL_CODE   32800u
-#define RLC_ADC_HIGH_RAIL_CODE  52960u
+#define RLC_ADC_DUT_VOLTS_PER_CODE (3.3f / (65536.0f * 0.25f))
+#define RLC_ADC_TIA_VOLTS_PER_CODE (3.3f / (65536.0f * 0.25f))
+/* B inventory board: Vadc = 1.65 + 0.25 Vin. Preserve input window -0.192 .. 3.476 V. */
+#define RLC_ADC_LOW_RAIL_CODE   31814u
+#define RLC_ADC_HIGH_RAIL_CODE  50025u
 
 #define RLC_DDS_GPIO        GPIOA
 #define RLC_DDS_SELECT_PIN  LL_GPIO_PIN_4 /* J3-30 */

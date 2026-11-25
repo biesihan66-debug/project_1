@@ -17,7 +17,7 @@
 
 #define TEST_TWO_PI           6.28318530717958648f
 #define TEST_MAX_SAMPLE_COUNT 60u
-#define TEST_CODE_SCALE       (3.3f / (65536.0f * 0.27675f))
+#define TEST_CODE_SCALE       (3.3f / (65536.0f * 0.25f))
 #define TEST_FEEDBACK_1_KOHM_C_F 24.2e-12f
 
 typedef enum
@@ -181,8 +181,8 @@ RLC_Status BSP_CaptureFrame(uint8_t cycles, uint32_t deadline, RLC_Frame *frame)
     frame->packed_samples = board->samples;
     frame->sample_count = (size_t)cycles * points;
     frame->cycles_per_sample = 1.0f / (float)points;
-    frame->dut_volts_per_code = TEST_CODE_SCALE;
-    frame->tia_volts_per_code = TEST_CODE_SCALE;
+    frame->dut_volts_per_code = RLC_ADC_DUT_VOLTS_PER_CODE;
+    frame->tia_volts_per_code = RLC_ADC_TIA_VOLTS_PER_CODE;
     frame->dut_clipped = false;
     frame->tia_clipped = false;
     for (size_t i = 0u; i < frame->sample_count; ++i)
@@ -199,9 +199,9 @@ RLC_Status BSP_CaptureFrame(uint8_t cycles, uint32_t deadline, RLC_Frame *frame)
         {
             dut_ac = fminf(0.35f, fmaxf(-0.35f, dut_ac));
         }
-        const uint16_t dut = adc_code(dut_ac, 42923.0f + board->dut_offset_codes, &frame->dut_clipped);
+        const uint16_t dut = adc_code(dut_ac, 40960.0f + board->dut_offset_codes, &frame->dut_clipped);
         const uint16_t tia_adc =
-            adc_code(tia.real * c - tia.imag * s, 42930.0f, &frame->tia_clipped);
+            adc_code(tia.real * c - tia.imag * s, 40967.0f, &frame->tia_clipped);
         board->samples[i] = ((uint32_t)tia_adc << 16) | dut;
     }
     return RLC_STATUS_OK;
@@ -521,8 +521,11 @@ static void test_analog_window(void)
     TestBoard board = {.component = RLC_COMPONENT_R, .component_value = 1000.0f};
     active_board = &board;
     bool clipped = false;
-    uint16_t trough = adc_code(-0.7071f, 42923.0f, &clipped);
-    require(!clipped && trough > 38900u && trough < 39100u, "nominal 0.5 Vrms trough");
+    require(fabsf(RLC_ADC_DUT_VOLTS_PER_CODE / TEST_CODE_SCALE - 1.0f) < 1e-5f &&
+            fabsf(RLC_ADC_TIA_VOLTS_PER_CODE / TEST_CODE_SCALE - 1.0f) < 1e-5f,
+            "production ADC scales match inventory divider");
+    uint16_t trough = adc_code(-0.7071f, 40960.0f, &clipped);
+    require(!clipped && trough > 37440u && trough < 37460u, "nominal 0.5 Vrms trough");
     board.clip_analog = true;
     require(RLC_MeasureFixed(NULL, 1u, 2u).status == RLC_STATUS_OVERLOAD,
             "limited 1k rejects analog flat tops inside the ADC window");
@@ -534,7 +537,7 @@ static void test_analog_window(void)
             cal.open_mask == 0u, "clipped open cannot become an ideal-open record");
     board.fixture = DUT_COMPONENT;
     board.clip_analog = false;
-    board.dut_offset_codes = -9070.0f;
+    board.dut_offset_codes = -8192.0f;
     require(RLC_MeasureFixed(NULL, 1u, 2u).status == RLC_STATUS_OVERLOAD,
             "bias shifted from 1.65 V to zero crosses the physical low threshold");
 }
